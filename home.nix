@@ -96,16 +96,20 @@
       name = "Papirus-Dark";
       package = pkgs.papirus-icon-theme;
     };
-
-    cursorTheme = {
-      name = "Bibata-Modern-Classic";
-      package = pkgs.bibata-cursors; 
-    };
   };
 
   qt = {
     enable = true;
     platformTheme.name = "gtk";
+  };
+
+  home.pointerCursor = {
+    name = "Bibata-Modern-Classic";
+    package = pkgs.bibata-cursors;
+    size = 20;
+
+    x11.enable = true;
+    gtk.enable = true;
   };
 
   fonts.fontconfig.enable = true;

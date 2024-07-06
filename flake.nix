@@ -49,13 +49,13 @@
           hardware.nixosModules.common-gpu-nvidia-disable
           hardware.nixosModules.common-pc-ssd
 
-          ./configuration.nix
-
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
             home-manager.users."afonso" = import ./home.nix;
           }
+
+          ./configuration.nix
         ];
       };
     };
