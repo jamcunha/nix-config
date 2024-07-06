@@ -1,0 +1,186 @@
+{ config, lib, pkgs, inputs, ... }:
+
+{
+  imports = [
+
+  ];
+
+  # temp fix for temperature
+  powerManagement.cpuFreqGovernor = "powersave";
+
+  # nixpkgs.config.allowUnfree = true;
+  nix = {
+    settings = {
+      auto-optimise-store = lib.mkDefault true;
+      experimental-features = [
+        "nix-command"
+        "flakes"
+      ];
+    };
+
+    gc = {
+      automatic = true;
+      dates = "weekly";
+      options = "--delete-older-than +3";
+    };
+  };
+
+  networking.hostName = "laptop"; # Define your hostname.
+  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+
+  time.timeZone = "Europe/Lisbon";
+
+  # Configure network proxy if necessary
+  # networking.proxy.default = "http://user:password@proxy:port/";
+  # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
+
+  # Select internationalisation properties.
+  i18n.defaultLocale = "en_US.UTF-8";
+  console = {
+    font = "Lat2-Terminus16";
+    keyMap = lib.mkDefault "us";
+    useXkbConfig = true; # use xkb.options in tty.
+  };
+
+  services.xserver = {
+    enable = true;
+    xkb = {
+      layout = "us";
+      options = "eurosign:e,caps:escape";
+    };
+
+    windowManager.bspwm.enable = true;
+    desktopManager.xterm.enable = false;
+
+    displayManager.lightdm.enable = true;
+  };
+
+  # Enable CUPS to print documents.
+  # services.printing.enable = true;
+
+  security.rtkit.enable = true;
+  hardware.pulseaudio.enable = false;
+  services.pipewire = {
+    enable = true;
+    alsa = {
+      enable = true;
+      support32Bit = true;
+    };
+
+    pulse.enable = true;
+    jack.enable = true;
+  };
+
+  services.libinput = {
+    enable = true;
+    touchpad.naturalScrolling = true;
+  };
+
+  users.users.afonso = {
+    # Check this to add more groups later (https://github.com/Misterio77/nix-config/blob/main/hosts/common/users/gabriel/default.nix)
+
+    isNormalUser = true;
+    initialPassword = "123"; # Set this to something else.
+    extraGroups = [
+      "wheel"
+      "networkmanager"
+    ];
+    packages = with pkgs; [ home-manager ];
+
+    shell = pkgs.zsh;
+    openssh.authorizedKeys.keys = [ ];
+  };
+
+  programs.zsh.enable = true;
+
+  # Check if it works in home-manager before removing (check after reboot)
+  # fonts.packages = with pkgs; [
+  #   font-awesome
+  #   (nerdfonts.override {
+  #     fonts = [
+  #       "FiraCode"
+  #       "FiraMono"
+  #       "Hack"
+  #       "Iosevka"
+  #       "IosevkaTerm"
+  #       "IosevkaTermSlab"
+  #       "JetBrainsMono"
+  #     ];
+  #   })
+  # ];
+
+  environment.systemPackages = with pkgs; [
+    stow # try to replace with xdg.configFile in home-manager
+
+    alsa-utils
+    brightnessctl
+    bspwm
+
+    gcc
+    gdb
+
+    go
+    gopls
+
+    # i3
+    # kitty
+    lightdm
+
+    lua
+
+    gnumake
+
+    mcontrolcenter # MSI Control Center
+
+    picom
+    playerctl
+    (polybar.override { pulseSupport = true; })
+    pulseaudio
+    sxhkd
+    # valgrind
+    # (vscode)
+
+    # just to have uptime --pretty
+    procps
+  ];
+
+  hardware.graphics.enable = true;
+
+  # Some programs need SUID wrappers, can be configured further or are
+  # started in user sessions.
+  # programs.mtr.enable = true;
+  # programs.gnupg.agent = {
+  #   enable = true;
+  #   enableSSHSupport = true;
+  # };
+
+  # List services that you want to enable:
+
+  # Enable the OpenSSH daemon.
+  # services.openssh.enable = true;
+
+  # Open ports in the firewall.
+  # networking.firewall.allowedTCPPorts = [ ... ];
+  # networking.firewall.allowedUDPPorts = [ ... ];
+  # Or disable the firewall altogether.
+  # networking.firewall.enable = false;
+
+  # This option defines the first version of NixOS you have installed on this particular machine,
+  # and is used to maintain compatibility with application data (e.g. databases) created on older NixOS versions.
+  #
+  # Most users should NEVER change this value after the initial install, for any reason,
+  # even if you've upgraded your system to a new NixOS release.
+  #
+  # This value does NOT affect the Nixpkgs version your packages and OS are pulled from,
+  # so changing it will NOT upgrade your system - see https://nixos.org/manual/nixos/stable/#sec-upgrading for how
+  # to actually do that.
+  #
+  # This value being lower than the current NixOS release does NOT mean your system is
+  # out of date, out of support, or vulnerable.
+  #
+  # Do NOT change this value unless you have manually inspected all the changes it would make to your configuration,
+  # and migrated your data accordingly.
+  #
+  # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
+  system.stateVersion = "24.05"; # Did you read the comment?
+}
