@@ -3,6 +3,7 @@
     ./git.nix
     ./themes.nix
     ./zsh.nix
+    ./alacritty.nix
   ];
 
   home.username = "afonso";
@@ -10,7 +11,6 @@
 
   home.packages = with pkgs; [
     # TODO: sort
-    alacritty
     bat
     brave
     discord
