@@ -83,7 +83,6 @@
     playerctl
     (polybar.override { pulseSupport = true; })
     pulseaudio
-    sxhkd
     # valgrind
     # (vscode)
 

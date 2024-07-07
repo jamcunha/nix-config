@@ -4,6 +4,7 @@
     ./themes.nix
     ./zsh.nix
     ./alacritty.nix
+    ./bspwm.nix
   ];
 
   home.username = "afonso";
@@ -46,10 +47,6 @@
 
     # for neovim
     xclip
-
-    # scratchterm (maybe add to bspwm nix config)
-    xdo
-    xdotool
 
     # for copilot (maybe add an overlay)
     nodejs_22
