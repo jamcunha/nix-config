@@ -41,21 +41,13 @@
         specialArgs = { inherit inputs outputs; };
 
         modules = [
-          disko.nixosModules.disko
-          ./hardware-configuration.nix
-          ./disko.nix
-
-          hardware.nixosModules.common-cpu-intel-comet-lake
-          hardware.nixosModules.common-gpu-nvidia-disable
-          hardware.nixosModules.common-pc-ssd
+          ./hosts/laptop
 
           home-manager.nixosModules.home-manager {
             home-manager.useGlobalPkgs = true;
             home-manager.useUserPackages = true;
-            home-manager.users."afonso" = import ./home.nix;
+            home-manager.users."afonso" = import ./home/afonso;
           }
-
-          ./configuration.nix
         ];
       };
     };
@@ -65,7 +57,7 @@
       extraSpecialArgs = { inherit inputs outputs; };
 
       modules = [
-        ./home.nix
+        ./home/afonso
       ];
     };
   };

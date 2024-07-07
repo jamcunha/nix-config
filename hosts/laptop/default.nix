@@ -1,29 +1,24 @@
-{ config, lib, pkgs, inputs, ... }:
+{ inputs, config, lib, pkgs, ... }:
 
 {
   imports = [
+    inputs.disko.nixosModules.disko
+    ./disko.nix
 
+    inputs.hardware.nixosModules.common-cpu-intel-comet-lake
+    inputs.hardware.nixosModules.common-gpu-nvidia-disable
+    inputs.hardware.nixosModules.common-pc-ssd
+    ./hardware-configuration.nix
+
+    ./users/afonso.nix
+
+    # TODO: organize this files to be common to all systems
+    ./pipewire.nix
+    ./nix.nix
   ];
 
   # temp fix for temperature
   powerManagement.cpuFreqGovernor = "powersave";
-
-  # nixpkgs.config.allowUnfree = true;
-  nix = {
-    settings = {
-      auto-optimise-store = lib.mkDefault true;
-      experimental-features = [
-        "nix-command"
-        "flakes"
-      ];
-    };
-
-    gc = {
-      automatic = true;
-      dates = "weekly";
-      options = "--delete-older-than +3";
-    };
-  };
 
   networking.hostName = "laptop"; # Define your hostname.
   networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
@@ -58,56 +53,10 @@
   # Enable CUPS to print documents.
   # services.printing.enable = true;
 
-  security.rtkit.enable = true;
-  hardware.pulseaudio.enable = false;
-  services.pipewire = {
-    enable = true;
-    alsa = {
-      enable = true;
-      support32Bit = true;
-    };
-
-    pulse.enable = true;
-    jack.enable = true;
-  };
-
   services.libinput = {
     enable = true;
     touchpad.naturalScrolling = true;
   };
-
-  users.users.afonso = {
-    # Check this to add more groups later (https://github.com/Misterio77/nix-config/blob/main/hosts/common/users/gabriel/default.nix)
-
-    isNormalUser = true;
-    initialPassword = "123"; # Set this to something else.
-    extraGroups = [
-      "wheel"
-      "networkmanager"
-    ];
-    packages = with pkgs; [ home-manager ];
-
-    shell = pkgs.zsh;
-    openssh.authorizedKeys.keys = [ ];
-  };
-
-  programs.zsh.enable = true;
-
-  # Check if it works in home-manager before removing (check after reboot)
-  # fonts.packages = with pkgs; [
-  #   font-awesome
-  #   (nerdfonts.override {
-  #     fonts = [
-  #       "FiraCode"
-  #       "FiraMono"
-  #       "Hack"
-  #       "Iosevka"
-  #       "IosevkaTerm"
-  #       "IosevkaTermSlab"
-  #       "JetBrainsMono"
-  #     ];
-  #   })
-  # ];
 
   environment.systemPackages = with pkgs; [
     stow # try to replace with xdg.configFile in home-manager
@@ -122,8 +71,6 @@
     go
     gopls
 
-    # i3
-    # kitty
     lightdm
 
     lua
@@ -140,9 +87,18 @@
     # valgrind
     # (vscode)
 
-    # just to have uptime --pretty
+    # just to have `uptime --pretty`
     procps
+
+    # gtk theme
+    dconf
   ];
+
+  programs.dconf.enable = true;
+
+  # Brave 126.1.67.123 buggy without compositor
+  # Picom installed temporarily
+  services.picom.shadow = false;
 
   hardware.graphics.enable = true;
 
