@@ -13,7 +13,6 @@
   home.packages = with pkgs; [
     # TODO: sort
     bat
-    brave
     discord
     docker
     dunst
@@ -42,6 +41,8 @@
     wget
     xorg.xkill
     zip
+
+    firefox
 
     # for neovim
     xclip
@@ -73,7 +74,7 @@
 
   home.sessionVariables = {
     EDITOR = "nvim";
-    BROWSER = "brave";
+    BROWSER = "firefox";
     TERMINAL = "alacritty";
     TERM = "xterm-256color";
 

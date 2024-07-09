@@ -95,20 +95,7 @@
   # Picom installed temporarily
   services.picom.shadow = false;
 
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-
-    extraPackages = with pkgs; [
-      libvdpau-va-gl
-      mesa
-    ];
-
-    extraPackages32 = with pkgs; [
-      libvdpau-va-gl
-      mesa
-    ];
-  };
+  hardware.graphics.enable = true;
 
   # not for steam but for useful options
   programs.steam.enable = true;

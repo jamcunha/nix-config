@@ -91,7 +91,7 @@ in {
     keybindings = {
       "super + Return"                = "${pkgs.alacritty}/bin/alacritty";
       "super + p"                     = "${pkgs.rofi}/bin/rofi -show drun";
-      "super + {b,shift + b}"         = "{${pkgs.brave}/bin/brave, ${pkgs.brave}/bin/brave --incognito}";
+      "super + {b,shift + b}"         = "{${pkgs.firefox}/bin/firefox, ${pkgs.firefox}/bin/firefox --private-window}";
       "super + f"                     = "${pkgs.xfce.thunar}/bin/thunar";
       "super + shift + s"             = "${pkgs.flameshot}/bin/flameshot gui";
       "super + shift + Return"        = "${bspwm-scratchterm}/bin/bspwm-scratchterm";
