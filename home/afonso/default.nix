@@ -17,7 +17,6 @@
     discord
     docker
     dunst
-    fastfetch
     # fd (better find) (used in neovim)
     feh
     flameshot
@@ -27,7 +26,6 @@
     htop
     jq
     killall
-    lutris
     mpv
     neovim
     nitrogen
@@ -50,6 +48,23 @@
 
     # for copilot (maybe add an overlay)
     nodejs_22
+
+    (lutris.override {
+      extraPkgs = pkgs: [
+        wineWowPackages.stable
+        winetricks
+      ];
+    })
+
+    (prismlauncher.override {
+      jdks = [
+        temurin-bin-8
+        temurin-bin-17
+        temurin-bin-21
+      ];
+    })
+
+    protonup
   ];
 
   home.file = {
@@ -61,9 +76,13 @@
     BROWSER = "brave";
     TERMINAL = "alacritty";
     TERM = "xterm-256color";
+
+    STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
   };
 
-  home.sessionPath = [ "$HOME/.local/bin" ];
+  home.sessionPath = [
+    "$HOME/.local/bin"
+  ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

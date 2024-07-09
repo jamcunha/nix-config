@@ -7,6 +7,7 @@
     extraGroups = [
       "wheel"
       "networkmanager"
+      "video"
     ];
     packages = with pkgs; [ home-manager ];
 

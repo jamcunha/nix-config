@@ -94,7 +94,7 @@ in {
       "super + {b,shift + b}"         = "{${pkgs.brave}/bin/brave, ${pkgs.brave}/bin/brave --incognito}";
       "super + f"                     = "${pkgs.xfce.thunar}/bin/thunar";
       "super + shift + s"             = "${pkgs.flameshot}/bin/flameshot gui";
-      "super + shift + Return"        = "${bspwm-scratchterm}";
+      "super + shift + Return"        = "${bspwm-scratchterm}/bin/bspwm-scratchterm";
 
       "XF86AudioRaiseVolume"          = "${pkgs.alsa-utils}/bin/amixer sset Master 1%+";
       "XF86AudioLowerVolume"          = "${pkgs.alsa-utils}/bin/amixer sset Master 1%-";
@@ -113,10 +113,10 @@ in {
       "super + shift + @space"        = "${pkgs.bspwm}/bin/bspc node -t floating";
       "super + shift + f"             = "${pkgs.bspwm}/bin/bspc node -t fullscreen";
       "super + {_,shift + }{h,j,k,l}" = "${pkgs.bspwm}/bin/bspc node -{f,s} {west,south,north,east}";
-      "super + {1-9,0}"               = "${bspwm-change-workspace} {1-9,10}";
-      "super + shift + {1-9,0}"       = "${bspwm-move-workspace} {1-9,10}";
+      "super + {1-9,0}"               = "${bspwm-change-workspace}/bin/bspwm-change-workspace {1-9,10}";
+      "super + shift + {1-9,0}"       = "${bspwm-move-workspace}/bin/bspwm-move-workspace {1-9,10}";
       "super + ctrl + {h,j,k,l}"      = "${pkgs.bspwm}/bin/bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}";
-      "super + {Left, Right}"         = "${pkgs.bspwm}/bin/bspc desktop -f {prev,next}";
+      "super + {Left, Right}"         = "${pkgs.bspwm}/bin/bspc monitor -f {prev,next}";
     };
   };
 }

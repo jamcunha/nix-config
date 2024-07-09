@@ -45,8 +45,6 @@
     };
 
     windowManager.bspwm.enable = true;
-    desktopManager.xterm.enable = false;
-
     displayManager.lightdm.enable = true;
   };
 
@@ -63,26 +61,24 @@
 
     alsa-utils
     brightnessctl
+    playerctl
+
     bspwm
+    picom
 
     gcc
     gdb
-
+    lua
+    gnumake
     go
     gopls
 
     lightdm
 
-    lua
-
-    gnumake
-
     mcontrolcenter # MSI Control Center
 
-    picom
-    playerctl
     (polybar.override { pulseSupport = true; })
-    pulseaudio
+
     # valgrind
     # (vscode)
 
@@ -99,7 +95,24 @@
   # Picom installed temporarily
   services.picom.shadow = false;
 
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+
+    extraPackages = with pkgs; [
+      libvdpau-va-gl
+      mesa
+    ];
+
+    extraPackages32 = with pkgs; [
+      libvdpau-va-gl
+      mesa
+    ];
+  };
+
+  # not for steam but for useful options
+  programs.steam.enable = true;
+  programs.gamemode.enable = true;
 
   # Some programs need SUID wrappers, can be configured further or are
   # started in user sessions.

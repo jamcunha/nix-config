@@ -109,6 +109,10 @@
         };
       };
 
+      env = {
+        "TERM" = "xterm-256color";
+      };
+
       # TODO: Change this to base16 colors shared with other programs
       # Theme: TokyoNight
       colors = {
