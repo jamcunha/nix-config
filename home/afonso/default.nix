@@ -16,7 +16,6 @@
     bat
     discord
     docker
-    dunst
     feh
     flameshot
     fzf
@@ -42,6 +41,9 @@
 
     xorg.xkill
     killall
+
+    dunst
+    libnotify
 
     firefox
 
@@ -82,9 +84,9 @@
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
   };
 
-  home.sessionPath = [
-    "$HOME/.local/bin"
-  ];
+  # home.sessionPath = [
+  #   "$HOME/.local/bin"
+  # ];
 
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release

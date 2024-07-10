@@ -64,7 +64,6 @@
     playerctl
 
     bspwm
-    picom
 
     gcc
     gdb
@@ -90,10 +89,6 @@
   ];
 
   programs.dconf.enable = true;
-
-  # Brave 126.1.67.123 buggy without compositor
-  # Picom installed temporarily
-  services.picom.shadow = false;
 
   hardware.graphics.enable = true;
 
