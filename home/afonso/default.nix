@@ -5,6 +5,7 @@
     ./zsh.nix
     ./alacritty.nix
     ./bspwm.nix
+    ./tmux.nix
   ];
 
   home.username = "afonso";
@@ -16,7 +17,6 @@
     discord
     docker
     dunst
-    # fd (better find) (used in neovim)
     feh
     flameshot
     fzf
@@ -24,9 +24,7 @@
     gnugrep
     htop
     jq
-    killall
     mpv
-    neovim
     nitrogen
     onlyoffice-bin
     pavucontrol
@@ -35,20 +33,23 @@
     rofi
     xfce.thunar
     tldr
-    tmux
     tree
+
     unzip
-    wget
-    xorg.xkill
     zip
+
+    wget
+
+    xorg.xkill
+    killall
 
     firefox
 
+    neovim
     # for neovim
     xclip
-
-    # for copilot (maybe add an overlay)
-    nodejs_22
+    fd # (better find) (used in neovim)
+    nodejs_22 # for copilot (maybe add an overlay)
 
     (lutris.override {
       extraPkgs = pkgs: [
