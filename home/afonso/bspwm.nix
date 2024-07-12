@@ -25,6 +25,10 @@
     fi
   '';
 in {
+  imports = [
+    ./dunst.nix
+  ];
+
   home.packages = [
     bspwm-change-workspace
     bspwm-move-workspace

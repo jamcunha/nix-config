@@ -16,6 +16,7 @@
     bat
     discord
     docker
+    evince
     feh
     flameshot
     fzf
@@ -43,7 +44,6 @@
     killall
 
     dunst
-    libnotify
 
     firefox
 
