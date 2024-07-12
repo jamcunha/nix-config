@@ -97,7 +97,7 @@ in {
       "super + p"                     = "${pkgs.rofi}/bin/rofi -show drun";
       "super + {b,shift + b}"         = "{${pkgs.firefox}/bin/firefox, ${pkgs.firefox}/bin/firefox --private-window}";
       "super + f"                     = "${pkgs.xfce.thunar}/bin/thunar";
-      "super + shift + s"             = "${pkgs.flameshot}/bin/flameshot gui";
+      "super + shift + s"             = "${pkgs.flameshot}/bin/flameshot gui & disown";
       "super + shift + Return"        = "${bspwm-scratchterm}/bin/bspwm-scratchterm";
 
       "XF86AudioRaiseVolume"          = "${pkgs.alsa-utils}/bin/amixer sset Master 1%+";
