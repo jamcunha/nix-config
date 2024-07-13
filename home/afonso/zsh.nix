@@ -7,7 +7,7 @@
     shellAliases = {
       ls = "${pkgs.eza}/bin/eza -lah --color=always --group-directories-first";
       vim = "nvim";
-      cat = "bat";
+      cat = "${pkgs.bat}/bin/bat";
       repos = "cd $HOME/Documents/repos";
     };
 

@@ -13,46 +13,54 @@
 
   home.packages = with pkgs; [
     # TODO: sort
-    bat
-    discord
     docker
-    evince
     feh
     flameshot
-    fzf
-    gimp
-    gnugrep
-    htop
-    jq
-    mpv
     nitrogen
-    onlyoffice-bin
-    pavucontrol
-    qbittorrent
-    ripgrep
-    rofi
-    xfce.thunar
-    tldr
-    tree
 
+    # TODO: (?) add a zsh function to extract any type of archive
     unzip
     zip
 
+    fzf
+    gnugrep
+    htop
+    ripgrep
+    tldr
+    tree
     wget
+
+    # TODO: check vencord
+    discord
+
+    # TODO: add config
+    mpv
+
+    # TODO: add config
+    rofi
+
+    evince
+    gimp
+    onlyoffice-bin
+    pavucontrol
+    qbittorrent
+    xfce.thunar
 
     xorg.xkill
     killall
 
-    dunst
-
+    # TODO: (?) add config
     firefox
 
+    # TODO: (?) add config
     neovim
     # for neovim
     xclip
     fd # (better find) (used in neovim)
     nodejs_22 # for copilot (maybe add an overlay)
+    jq # Think lsp's use it (test later)
 
+    # TODO: check gaming specialization
     (lutris.override {
       extraPkgs = pkgs: [
         wineWowPackages.stable
@@ -78,7 +86,6 @@
   home.sessionVariables = {
     EDITOR = "nvim";
     BROWSER = "firefox";
-    TERMINAL = "alacritty";
     TERM = "xterm-256color";
 
     STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
