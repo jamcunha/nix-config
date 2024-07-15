@@ -17,11 +17,18 @@
     ./nix.nix
   ];
 
+  # system globals
+  username = "afonso";
+  hostname = "laptop";
+  fullName = "Joaquim Cunha";
+  gitName = "Joaquim Cunha";
+  gitEmail = "joaquimafonsocunha@gmail.com";
+
   # temp fix for temperature
   powerManagement.cpuFreqGovernor = "powersave";
 
-  networking.hostName = "laptop"; # Define your hostname.
-  networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
+  networking.hostName = config.hostname;
+  networking.networkmanager.enable = true;
 
   time.timeZone = "Europe/Lisbon";
 
@@ -90,7 +97,10 @@
 
   programs.dconf.enable = true;
 
-  hardware.graphics.enable = true;
+  hardware.graphics = {
+    enable = true;
+    enable32Bit = true;
+  };
 
   # not for steam but for useful options
   programs.steam.enable = true;

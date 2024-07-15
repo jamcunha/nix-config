@@ -41,6 +41,9 @@
         specialArgs = { inherit inputs outputs; };
 
         modules = [
+          # set the options in /hosts/laptop/default.nix
+          ./modules/system-globals.nix
+
           ./hosts/laptop
 
           home-manager.nixosModules.home-manager {

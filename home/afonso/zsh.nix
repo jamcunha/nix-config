@@ -8,7 +8,6 @@
       ls = "${pkgs.eza}/bin/eza -lah --color=always --group-directories-first";
       vim = "nvim";
       cat = "${pkgs.bat}/bin/bat";
-      repos = "cd $HOME/Documents/repos";
     };
 
     # for leave oh-my-zsh, later replace for custom config

@@ -29,12 +29,6 @@ in {
     ./dunst.nix
   ];
 
-  home.packages = [
-    bspwm-change-workspace
-    bspwm-move-workspace
-    bspwm-scratchterm
-  ];
-
   xsession.windowManager.bspwm = {
     enable = true;
 
