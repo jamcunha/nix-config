@@ -1,5 +1,5 @@
 { config, pkgs, ... }: {
-  users.users.${config.username} = {
+  users.users.afonso = {
     # Check this to add more groups later (https://github.com/Misterio77/nix-config/blob/main/hosts/common/users/gabriel/default.nix)
 
     isNormalUser = true;

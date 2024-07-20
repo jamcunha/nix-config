@@ -17,14 +17,6 @@
   };
 
   outputs = { self, nixpkgs, hardware, disko, home-manager, ... }@inputs : let
-    inherit (self) outputs;
-
-    systems = [
-      "x86_64-linux"
-    ];
-
-    lib = nixpkgs.lib // home-manager.lib;
-
     pkgs = import nixpkgs {
       system = "x86_64-linux";
       config = {
@@ -32,32 +24,13 @@
       };
     };
   in {
-    inherit lib;
-
     nixosConfigurations = {
-      laptop = lib.nixosSystem {
-        inherit pkgs;
-        system = "x86_64-linux";
-        specialArgs = { inherit inputs outputs; };
-
-        modules = [
-          # set the options in /hosts/laptop/default.nix
-          ./modules/system-globals.nix
-
-          ./hosts/laptop
-
-          home-manager.nixosModules.home-manager {
-            home-manager.useGlobalPkgs = true;
-            home-manager.useUserPackages = true;
-            home-manager.users."afonso" = import ./home/afonso;
-          }
-        ];
-      };
+      laptop = import ./hosts/laptop { inherit inputs; };
     };
 
-    homeConfigurations."afonso" = lib.homeManagerConfiguration {
+    homeConfigurations."afonso" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
-      extraSpecialArgs = { inherit inputs outputs; };
+      extraSpecialArgs = { inherit inputs; };
 
       modules = [
         ./home/afonso
