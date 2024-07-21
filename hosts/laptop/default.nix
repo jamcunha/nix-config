@@ -53,6 +53,11 @@ inputs.nixpkgs.lib.nixosSystem {
       ];
 
       # NixOS related config
+      gui = {
+        enable = true;
+        wm.bspwm = true;
+      };
+
       soundCfg.enable = true;
 
       # Programs and services

@@ -11,7 +11,7 @@
   console = {
     font = "Lat2-Terminus16";
     keyMap = lib.mkDefault "us";
-    useXkbConfig = true; # use xkb.options in tty.
+    # useXkbConfig = true; # use xkb.options in tty.
   };
 
   services.xserver = {
@@ -27,11 +27,6 @@
 
   # Enable CUPS to print documents.
   # services.printing.enable = true;
-
-  services.libinput = {
-    enable = true;
-    touchpad.naturalScrolling = true;
-  };
 
   environment.systemPackages = with pkgs; [
     stow # try to replace with xdg.configFile in home-manager
@@ -60,17 +55,7 @@
 
     # just to have `uptime --pretty`
     procps
-
-    # gtk theme
-    dconf
   ];
-
-  programs.dconf.enable = true;
-
-  hardware.graphics = {
-    enable = true;
-    enable32Bit = true;
-  };
 
   # not for steam but for useful options
   programs.steam.enable = true;
@@ -112,5 +97,5 @@
   # and migrated your data accordingly.
   #
   # For more information, see `man configuration.nix` or https://nixos.org/manual/nixos/stable/options#opt-system.stateVersion .
-  system.stateVersion = "24.05"; # Did you read the comment?
+  # system.stateVersion = "24.05"; # Did you read the comment?
 }

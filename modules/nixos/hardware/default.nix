@@ -2,8 +2,9 @@
 
 {
   imports = [
-    ./sound.nix
     ./boot.nix
+    ./mouse.nix
+    ./sound.nix
   ];
 
   options = {

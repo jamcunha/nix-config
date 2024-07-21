@@ -1,9 +1,5 @@
 { inputs, config, pkgs, ... }: {
   imports = [
-    # ./git.nix
-    ./themes.nix
-    # ./zsh.nix
-    # ./alacritty.nix
     ./bspwm.nix
     ./tmux.nix
   ];
