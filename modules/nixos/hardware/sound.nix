@@ -1,7 +1,7 @@
 { config, lib, pkgs, ... }:
 
 {
-  config = lib.mkIf (config.soundCfg.enable && pkgs.stdenv.isLinux) {
+  config = lib.mkIf (config.gui.enable && config.soundCfg.enable && pkgs.stdenv.isLinux) {
     security.rtkit.enable = true;
     hardware.pulseaudio.enable = false;
 
