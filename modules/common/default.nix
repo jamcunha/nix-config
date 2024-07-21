@@ -4,6 +4,7 @@
   imports = [
     ./alacritty.nix
     ./git.nix
+    ./tmux.nix
     ./zsh.nix
   ];
 
@@ -17,6 +18,8 @@
       type = lib.types.str;
       description = "Full name of the primary user";
     };
+
+    # maybe add a option for the shell
 
     unfreePackages = lib.mkOption {
       type = lib.types.listOf lib.types.str;
@@ -42,7 +45,90 @@
     # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.unfreePackages;
     nixpkgs.config.allowUnfree = true;
 
-    home-manager.users.${config.user}.home.stateVersion = stateVersion;
+    home-manager.users.${config.user} = {
+      home.username = config.user;
+      home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${config.user}" else "/home/${config.user}";
+
+      # TODO: Check for better way to handle the configuration below ----------------------------------
+
+      home.packages = with pkgs; [
+        docker
+        feh
+        nitrogen
+
+        # TODO: (?) add a zsh function to extract any type of archive
+        unzip
+        zip
+
+        fzf
+        gnugrep
+        htop
+        ripgrep
+        tldr
+        tree
+
+        # TODO: check vencord
+        discord
+
+        # TODO: add config
+        mpv
+
+        evince # maybe add this to nixos module since it only runs on linux
+        gimp
+        onlyoffice-bin
+        pavucontrol
+        qbittorrent
+        xfce.thunar
+
+        xorg.xkill
+        killall
+
+        # TODO: (?) add config
+        firefox
+
+        # TODO: (?) add config
+        neovim
+        fd # (better find) (used in neovim)
+        nodejs_22 # for copilot (maybe add an overlay)
+        jq # Think lsp's use it (test later)
+
+        # TODO: check gaming specialization
+        (lutris.override {
+          extraPkgs = pkgs: [
+            wineWowPackages.stable
+            winetricks
+          ];
+        })
+
+        (prismlauncher.override {
+          jdks = [
+            temurin-bin-8
+            temurin-bin-17
+            temurin-bin-21
+          ];
+        })
+
+        protonup
+      ];
+
+      home.file = {
+
+      };
+
+      home.sessionVariables = {
+        EDITOR = "nvim";
+        BROWSER = "firefox";
+        TERM = "xterm-256color";
+
+        STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+      };
+
+      # -------------------------------------------------------
+
+      home.stateVersion = stateVersion;
+      programs.home-manager.enable = true;
+    };
+
     home-manager.users.root.home.stateVersion = stateVersion;
   };
 }

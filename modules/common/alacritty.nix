@@ -6,8 +6,7 @@
     default = false;
   };
 
-  # TODO: add `config.gui.enable`
-  config = lib.mkIf (config.alacritty.enable) {
+  config = lib.mkIf (config.gui.enable && config.alacritty.enable) {
     home-manager.users.${config.user} = {
       home.sessionVariables.TERMINAL = "alacritty";
 

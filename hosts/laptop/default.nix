@@ -4,18 +4,8 @@ inputs.nixpkgs.lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = [
-    inputs.home-manager.nixosModules.home-manager {
-      home-manager.users."afonso" = import ../../home/afonso;
-    }
-
-    ./nix.nix
-
-    # Keep while migrating
-    ./default-bak.nix
-
-    # ^-------^ remove after migration ^-------^
-
     globals
+    inputs.home-manager.nixosModules.home-manager
 
     inputs.disko.nixosModules.disko
     ./disko.nix
@@ -52,6 +42,35 @@ inputs.nixpkgs.lib.nixosSystem {
         "video"
       ];
 
+      # ---- Sort this -----------------------
+
+      environment.systemPackages = let
+        pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+      in with pkgs; [
+        stow # try to replace with xdg.configFile in home-manager
+
+        # TODO: add to a keybind
+        brightnessctl
+
+        gcc
+        gdb
+        lua
+        gnumake
+        go
+        gopls
+
+        mcontrolcenter # MSI Control Center
+
+        # valgrind
+        # (vscode)
+      ];
+
+      # not for steam but for useful options
+      programs.steam.enable = true;
+      programs.gamemode.enable = true;
+
+      # --------------------------------------
+
       # NixOS related config
       gui = {
         enable = true;
@@ -62,6 +81,7 @@ inputs.nixpkgs.lib.nixosSystem {
 
       # Programs and services
       alacritty.enable = true;
+      tmux.enable = true;
     }
   ];
 }
