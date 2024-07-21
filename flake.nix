@@ -17,32 +17,19 @@
   };
 
   outputs = { self, nixpkgs, hardware, disko, home-manager, ... }@inputs : let
-    pkgs = import nixpkgs {
-      system = "x86_64-linux";
-      config = {
-        allowUnfree = true;
-      };
-    };
-
     globals = {
       user = "afonso";
       fullName = "Joaquim Cunha";
       gitName = "Joaquim Cunha";
       gitEmail = "joaquimafonsocunha@gmail.com";
     };
-  in {
+  in rec {
     nixosConfigurations = {
       laptop = import ./hosts/laptop { inherit inputs globals; };
     };
 
-    # This is the wrong config (finishing migration before changing this)
-    homeConfigurations."afonso" = home-manager.lib.homeManagerConfiguration {
-      inherit pkgs;
-      extraSpecialArgs = { inherit inputs; };
-
-      modules = [
-        ./home/afonso
-      ];
+    homeConfigurations = {
+      laptop = nixosConfigurations.laptop.config.home-manager.users.${globals.user}.home;
     };
   };
 }

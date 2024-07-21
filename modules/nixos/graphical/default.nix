@@ -3,6 +3,7 @@
 {
   imports = [
     ./theme.nix
+    ./bspwm.nix
   ];
 
   options.gui = {
@@ -32,11 +33,6 @@
     powermenuCmd = lib.mkOption {
       type = lib.types.str;
       description = "Command used to run the powermenu";
-    };
-
-    barCmd = lib.mkOption {
-      type = lib.types.str;
-      description = "Command used to run the bar";
     };
   };
 
