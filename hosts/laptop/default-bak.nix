@@ -1,36 +1,13 @@
-{ inputs, config, lib, pkgs, ... }:
+{ lib, pkgs, ... }:
 
 {
-  imports = [
-    inputs.disko.nixosModules.disko
-    ./disko.nix
-
-    inputs.hardware.nixosModules.common-cpu-intel-comet-lake
-    inputs.hardware.nixosModules.common-gpu-nvidia-disable
-    inputs.hardware.nixosModules.common-pc-ssd
-    ./hardware-configuration.nix
-
-    ./users/afonso.nix
-
-    # TODO: organize this files to be common to all systems
-    ./pipewire.nix
-    ./nix.nix
-  ];
-
-  # temp fix for temperature
-  powerManagement.cpuFreqGovernor = "powersave";
-
-  networking.hostName = "laptop";
-  networking.networkmanager.enable = true;
-
-  time.timeZone = "Europe/Lisbon";
+  # time.timeZone = "Europe/Lisbon";
 
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
 
   # Select internationalisation properties.
-  i18n.defaultLocale = "en_US.UTF-8";
   console = {
     font = "Lat2-Terminus16";
     keyMap = lib.mkDefault "us";

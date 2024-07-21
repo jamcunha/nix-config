@@ -1,9 +1,9 @@
 { inputs, config, pkgs, ... }: {
   imports = [
-    ./git.nix
+    # ./git.nix
     ./themes.nix
-    ./zsh.nix
-    ./alacritty.nix
+    # ./zsh.nix
+    # ./alacritty.nix
     ./bspwm.nix
     ./tmux.nix
   ];
@@ -102,7 +102,7 @@
   # You should not change this value, even if you update Home Manager. If you do
   # want to update the value, then make sure to first check the Home Manager
   # release notes.
-  home.stateVersion = "24.05"; # Please read the comment before changing.
+  # home.stateVersion = "24.05"; # Please read the comment before changing.
 
   # Let Home Manager install and manage itself.
   programs.home-manager.enable = true;

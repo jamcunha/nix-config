@@ -23,11 +23,19 @@
         allowUnfree = true;
       };
     };
+
+    globals = {
+      user = "afonso";
+      fullName = "Joaquim Cunha";
+      gitName = "Joaquim Cunha";
+      gitEmail = "joaquimafonsocunha@gmail.com";
+    };
   in {
     nixosConfigurations = {
-      laptop = import ./hosts/laptop { inherit inputs; };
+      laptop = import ./hosts/laptop { inherit inputs globals; };
     };
 
+    # This is the wrong config (finishing migration before changing this)
     homeConfigurations."afonso" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       extraSpecialArgs = { inherit inputs; };
