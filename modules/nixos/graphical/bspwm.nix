@@ -83,6 +83,7 @@ in
 
         extraConfig = ''
           nitrogen --restore &
+          systemctl --user start polybar
         '';
       };
 

@@ -17,11 +17,11 @@
           # killall -q polybar
           
           # Launch bar1
-          echo "---" | tee -a /tmp/polybar.log
+          echo "---" | ${pkgs.coreutils}/bin/tee -a /tmp/polybar.log
 
-          for m in $(xrandr --listactivemonitors | grep -v "Monitors" | cut -d" " -f3 | cut -d"+" -f2 | cut -d"*" -f2); do
+          for m in $(${pkgs.xorg.xrandr}/bin/xrandr --listactivemonitors | ${pkgs.gnugrep}/bin/grep -v "Monitors" | ${pkgs.coreutils}/bin/cut -d" " -f3 | ${pkgs.coreutils}/bin/cut -d"+" -f2 | ${pkgs.coreutils}/bin/cut -d"*" -f2); do
             echo "$m"
-            MONITOR=$m polybar main 2>&1 | tee -a /tmp/polybar.log & disown
+            MONITOR=$m polybar main 2>&1 | ${pkgs.coreutils}/bin/tee -a /tmp/polybar.log & disown
           done
 
           echo "Bars launched..."
