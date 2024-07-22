@@ -18,7 +18,7 @@
       };
 
       settings = {
-        auto-optimize-store = lib.mkIf (!pkgs.stdenv.isDarwin) true;
+        auto-optimise-store = lib.mkIf (!pkgs.stdenv.isDarwin) true;
         experimental-features = [
           "nix-command"
           "flakes"
