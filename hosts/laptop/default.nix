@@ -52,17 +52,11 @@ inputs.nixpkgs.lib.nixosSystem {
         # TODO: add to a keybind
         brightnessctl
 
-        gcc
-        gdb
         lua
-        gnumake
         go
         gopls
 
         mcontrolcenter # MSI Control Center
-
-        # valgrind
-        # (vscode)
       ];
 
       # not for steam but for useful options
@@ -81,7 +75,12 @@ inputs.nixpkgs.lib.nixosSystem {
 
       # Programs and services
       alacritty.enable = true;
+      direnv.enable = true;
+      mpv.enable = true;
       tmux.enable = true;
+
+      # temp
+      starship.enable = true;
     }
   ];
 }

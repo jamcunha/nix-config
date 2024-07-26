@@ -17,6 +17,7 @@ in
 
       extraGroups = ifGroupExists config.userGroups ++ [ "wheel" ];
 
+      packages = [ pkgs.home-manager ];
       openssh.authorizedKeys.keys = [ ];
     };
 

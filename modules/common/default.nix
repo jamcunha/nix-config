@@ -3,10 +3,15 @@
 {
   imports = [
     ./alacritty.nix
+    ./direnv.nix
     ./git.nix
+    ./mpv.nix
     ./nixpkgs.nix
     ./tmux.nix
     ./zsh.nix
+
+    # temporary
+    ./starship.nix
   ];
 
   options = {
@@ -71,9 +76,6 @@
         # TODO: check vencord
         discord
 
-        # TODO: add config
-        mpv
-
         evince # maybe add this to nixos module since it only runs on linux
         gimp
         onlyoffice-bin
@@ -121,7 +123,7 @@
         BROWSER = "firefox";
         TERM = "xterm-256color";
 
-        STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+        # STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
       };
 
       # -------------------------------------------------------
