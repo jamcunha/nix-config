@@ -73,6 +73,8 @@ inputs.nixpkgs.lib.nixosSystem {
 
       soundCfg.enable = true;
 
+      virt-manager.enable = true;
+
       # Programs and services
       alacritty.enable = true;
       direnv.enable = true;

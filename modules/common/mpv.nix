@@ -21,8 +21,6 @@
           LEFT = "no-osd seek -5 exact";
           UP = "add volume 5";
           DOWN = "add volume -5";
-
-          # TODO: add frame step to shift + left/right
         };
       };
     };
