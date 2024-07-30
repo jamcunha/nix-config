@@ -74,6 +74,7 @@ inputs.nixpkgs.lib.nixosSystem {
       soundCfg.enable = true;
 
       virt-manager.enable = true;
+      docker.enable = true;
 
       # Programs and services
       alacritty.enable = true;

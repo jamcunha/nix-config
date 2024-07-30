@@ -58,7 +58,6 @@
       # TODO: Check for better way to handle the configuration below ----------------------------------
 
       home.packages = with pkgs; [
-        docker
         feh
         nitrogen
 
@@ -67,8 +66,6 @@
         zip
 
         fzf
-        gnugrep
-        htop
         ripgrep
         tldr
         tree
@@ -76,15 +73,19 @@
         # TODO: check vencord
         discord
 
+        qbittorrent
+
         evince # maybe add this to nixos module since it only runs on linux
         gimp
         onlyoffice-bin
         pavucontrol
-        qbittorrent
         xfce.thunar
 
         xorg.xkill
         killall
+
+        gnugrep
+        htop
 
         # TODO: (?) add config
         firefox
