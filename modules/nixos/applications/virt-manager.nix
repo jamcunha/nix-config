@@ -7,6 +7,10 @@
   };
 
   config = lib.mkIf (config.virt-manager.enable && pkgs.stdenv.isLinux) {
+    environment.systemPackages = with pkgs; [
+      virtiofsd
+    ];
+
     virtualisation.libvirtd.enable = true;
     programs.virt-manager.enable = true;
 
