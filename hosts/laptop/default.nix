@@ -72,6 +72,7 @@ inputs.nixpkgs.lib.nixosSystem {
       };
 
       soundCfg.enable = true;
+      nix-ld.enable = true;
 
       virt-manager.enable = true;
       docker.enable = true;
