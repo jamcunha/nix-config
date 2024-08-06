@@ -42,6 +42,7 @@
         buildInputs = with pkgs; [
           git
 
+          lua
           lua-language-server
         ];
       };

@@ -47,14 +47,8 @@ inputs.nixpkgs.lib.nixosSystem {
       environment.systemPackages = let
         pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
       in with pkgs; [
-        stow # try to replace with xdg.configFile in home-manager
-
         # TODO: add to a keybind
         brightnessctl
-
-        lua
-        go
-        gopls
 
         mcontrolcenter # MSI Control Center
       ];
