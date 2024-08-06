@@ -16,6 +16,8 @@
         jq # Think lsp's use it (test later)
       ];
 
+      programs.git.extraConfig.core.editor = "nvim";
+
       home.sessionVariables.EDITOR = "nvim";
 
       xdg.configFile."nvim" = {
