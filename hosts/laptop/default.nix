@@ -81,6 +81,7 @@ inputs.nixpkgs.lib.nixosSystem {
       alacritty.enable = true;
       direnv.enable = true;
       mpv.enable = true;
+      neovim.enable = true;
       tmux.enable = true;
 
       # temp

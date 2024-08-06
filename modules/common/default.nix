@@ -7,6 +7,7 @@
     ./git.nix
     ./mpv.nix
     ./nixpkgs.nix
+    ./nvim.nix
     ./tmux.nix
     ./zsh.nix
 
@@ -90,12 +91,6 @@
         # TODO: (?) add config
         firefox
 
-        # TODO: (?) add config
-        neovim
-        fd # (better find) (used in neovim)
-        nodejs_22 # for copilot (maybe add an overlay)
-        jq # Think lsp's use it (test later)
-
         # TODO: check gaming specialization
         (lutris.override {
           extraPkgs = pkgs: [
@@ -120,7 +115,6 @@
       };
 
       home.sessionVariables = {
-        EDITOR = "nvim";
         BROWSER = "firefox";
         TERM = "xterm-256color";
 
