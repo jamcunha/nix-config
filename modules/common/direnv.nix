@@ -14,7 +14,7 @@
       };
 
       programs.git.ignores = [
-        ".direnv/**"
+        "**/.direnv/**"
       ];
     };
   };
