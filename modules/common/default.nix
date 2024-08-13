@@ -76,7 +76,7 @@
 
         qbittorrent
 
-        evince # maybe add this to nixos module since it only runs on linux
+        evince
         gimp
         onlyoffice-bin
         pavucontrol
@@ -119,6 +119,20 @@
         TERM = "xterm-256color";
 
         # STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
+      };
+
+      xdg.mimeApps = {
+        enable = true;
+
+        associations.added = {
+          "application/pdf" = "evince.desktop";
+          "text/html" = "firefox.desktop";
+        };
+
+        defaultApplications = {
+          "application/pdf" = "org.gnome.Evince.desktop";
+          "text/html" = "firefox.desktop";
+        };
       };
 
       # -------------------------------------------------------
