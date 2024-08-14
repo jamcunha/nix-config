@@ -11,8 +11,24 @@ inputs.nixpkgs.lib.nixosSystem {
     ./disko.nix
 
     inputs.hardware.nixosModules.common-cpu-intel-comet-lake
-    inputs.hardware.nixosModules.common-gpu-nvidia-disable
     inputs.hardware.nixosModules.common-pc-ssd
+
+    # GPU Settings
+    {
+      imports = [ inputs.hardware.nixosModules.common-gpu-nvidia ];
+
+      hardware.nvidia.prime = {
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:2:0:0";
+      };
+
+      specialisation = {
+        no-dgpu.configuration = {
+          imports = [ inputs.hardware.nixosModules.common-gpu-nvidia-disable ];
+        };
+      };
+    }
+
 
     ../../modules/common
     ../../modules/nixos
