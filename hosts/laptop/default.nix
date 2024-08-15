@@ -10,7 +10,8 @@ inputs.nixpkgs.lib.nixosSystem {
     inputs.disko.nixosModules.disko
     ./disko.nix
 
-    inputs.hardware.nixosModules.common-cpu-intel-comet-lake
+    inputs.hardware.nixosModules.common-cpu-intel
+    inputs.hardware.nixosModules.common-gpu-intel-comet-lake
     inputs.hardware.nixosModules.common-pc-ssd
 
     # GPU Settings
