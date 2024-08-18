@@ -106,6 +106,7 @@ require("lazy").setup({
 	{ -- LSP Configuration & Plugins
 		"neovim/nvim-lspconfig",
 		dependencies = {
+			-- NOTE: Not used with NixOS
 			-- Automatically install LSPs and related tools to stdpath for Neovim
 			-- { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
 			-- "williamboman/mason-lspconfig.nvim",
@@ -220,6 +221,12 @@ require("lazy").setup({
 				gopls = {
 					settings = {
 						gopls = {
+							completeUnimported = true,
+
+							analyses = {
+								unusedparams = true,
+							},
+
 							hints = {
 								assignVariableTypes = true,
 								compositeLiteralFields = true,
@@ -255,6 +262,7 @@ require("lazy").setup({
 				},
 			}
 
+			-- NOTE: Not used with NixOS
 			-- require("mason").setup()
 
 			-- local ensure_installed = vim.tbl_keys(servers or {})
@@ -348,18 +356,26 @@ require("lazy").setup({
 		},
 		opts = {
 			notify_on_error = false,
-			-- format_on_save = function(bufnr)
-			-- 	-- Disable "format_on_save lsp_fallback" for languages that don't
-			-- 	-- have a well standardized coding style. You can add additional
-			-- 	-- languages here or re-enable it for the disabled ones.
-			-- 	local disable_filetypes = { c = true, cpp = true }
-			-- 	return {
-			-- 		timeout_ms = 500,
-			-- 		lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
-			-- 	}
-			-- end,
+			format_on_save = function(bufnr)
+				-- Disable "format_on_save lsp_fallback" for languages that don't
+				-- have a well standardized coding style. You can add additional
+				-- languages here or re-enable it for the disabled ones.
+				-- local disable_filetypes = { c = true, cpp = true }
+				-- return {
+				-- 	timeout_ms = 500,
+				-- 	lsp_fallback = not disable_filetypes[vim.bo[bufnr].filetype],
+				-- }
+
+				-- Enable "format_on_save lsp_fallback" for specific filetypes
+				local enable_filetypes = { "go" }
+				return {
+					timeout_ms = 500,
+					lsp_fallback = enable_filetypes[vim.bo[bufnr].filetype],
+				}
+			end,
 			formatters_by_ft = {
 				lua = { "stylua" },
+				go = { "goimports_reviser", "gofumpt", "golines"},
 				-- Conform can also run multiple formatters sequentially
 				-- python = { "isort", "black" },
 				--
@@ -563,7 +579,7 @@ require("lazy").setup({
 
 	-- require 'kickstart.plugins.debug',
 	-- require("kickstart.plugins.indent_line"),
-	-- require 'kickstart.plugins.lint',
+	require 'kickstart.plugins.lint',
 	-- require 'kickstart.plugins.autopairs',
 	-- require 'kickstart.plugins.neo-tree',
 	-- require 'kickstart.plugins.gitsigns', -- adds gitsigns recommend keymaps

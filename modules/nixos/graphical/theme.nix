@@ -40,6 +40,7 @@
       in {
         enable = true;
 
+        # TODO: changed with update
         theme = {
           name = "Tokyonight-Dark-BL-LB";
           package = pkgs.tokyonight-gtk-theme;
