@@ -66,10 +66,10 @@ in
           bind - split-window -v
 
           # Kill Pane
-          bind k kill-pane
+          bind \; kill-pane
 
           # Kill Window
-          bind K kill-window
+          bind \: kill-window
 
           # Navigate Windows
           bind -n M-h previous-window
