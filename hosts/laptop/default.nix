@@ -1,6 +1,6 @@
-{ inputs, globals, ... }:
+{ inputs, globals, lib, ... }:
 
-inputs.nixpkgs.lib.nixosSystem {
+lib.nixosSystem {
   system = "x86_64-linux";
 
   modules = [
@@ -26,6 +26,9 @@ inputs.nixpkgs.lib.nixosSystem {
       specialisation = {
         no-dgpu.configuration = {
           imports = [ inputs.hardware.nixosModules.common-gpu-nvidia-disable ];
+
+          # temp fix for temperature (?? have profiles for cpuFreqGovernor)
+          powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
         };
       };
     }
@@ -51,8 +54,7 @@ inputs.nixpkgs.lib.nixosSystem {
       hardware.enableRedistributableFirmware = true;
       hardware.cpu.intel.updateMicrocode = true;
 
-      # temp fix for temperature (?? have profiles for cpuFreqGovernor)
-      powerManagement.cpuFreqGovernor = "powersave";
+      powerManagement.cpuFreqGovernor = "ondemand";
 
       userGroups = [
         "networkmanager"

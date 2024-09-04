@@ -239,7 +239,13 @@ require("lazy").setup({
 						},
 					},
 				},
-				pyright = {},
+				basedpyright = {
+					settings = {
+						basedpyright = {
+							disableOrganizeImports = true, -- isort takes care of organizing imports
+						},
+					},
+				},
 				rust_analyzer = {},
 				tsserver = {},
 
@@ -357,6 +363,10 @@ require("lazy").setup({
 		opts = {
 			notify_on_error = false,
 			format_on_save = function(bufnr)
+				if vim.bo[bufnr].filetype == "python" then
+					return nil
+				end
+
 				-- Disable "format_on_save lsp_fallback" for languages that don't
 				-- have a well standardized coding style. You can add additional
 				-- languages here or re-enable it for the disabled ones.
@@ -377,7 +387,7 @@ require("lazy").setup({
 				lua = { "stylua" },
 				go = { "goimports_reviser", "gofumpt", "golines"},
 				-- Conform can also run multiple formatters sequentially
-				-- python = { "isort", "black" },
+				python = { "isort", "black" },
 				--
 				-- You can use a sub-list to tell conform to run *until* a formatter
 				-- is found.

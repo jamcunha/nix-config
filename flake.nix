@@ -30,7 +30,7 @@
     });
   in rec {
     nixosConfigurations = {
-      laptop = import ./hosts/laptop { inherit inputs globals; };
+      laptop = import ./hosts/laptop { inherit inputs globals; lib = inputs.nixpkgs.lib; };
     };
 
     homeConfigurations = {
