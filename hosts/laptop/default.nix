@@ -18,9 +18,13 @@ lib.nixosSystem {
     {
       imports = [ inputs.hardware.nixosModules.common-gpu-nvidia ];
 
-      hardware.nvidia.prime = {
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:2:0:0";
+      hardware.nvidia = {
+        open = false;
+
+        prime = {
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:2:0:0";
+        };
       };
 
       specialisation = {
@@ -96,6 +100,13 @@ lib.nixosSystem {
       mpv.enable = true;
       neovim.enable = true;
       tmux.enable = true;
+      spotify = {
+        enable = true;
+        spicetify = {
+          enable = true;
+          input = inputs.spicetify-nix;
+        };
+      };
 
       # temp
       starship.enable = true;

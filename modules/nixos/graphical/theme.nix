@@ -42,7 +42,7 @@
 
         # TODO: changed with update
         theme = {
-          name = "Tokyonight-Dark-BL-LB";
+          name = "Tokyonight-Dark";
           package = pkgs.tokyonight-gtk-theme;
         };
 

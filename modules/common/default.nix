@@ -8,6 +8,7 @@
     ./mpv.nix
     ./nixpkgs.nix
     ./nvim.nix
+    ./spotify.nix
     ./tmux.nix
     ./zsh.nix
 
