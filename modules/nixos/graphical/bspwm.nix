@@ -115,11 +115,11 @@ in
           "XF86AudioLowerVolume"        = config.soundCfg.volumeDown;
           "XF86AudioMute"               = config.soundCfg.volumeToggle;
 
-          "XF86AudioPlay"                 = "${pkgs.playerctl}/bin/playerctl play-pause";
-          "XF86AudioNext"                 = "${pkgs.playerctl}/bin/playerctl next";
-          "XF86AudioPrev"                 = "${pkgs.playerctl}/bin/playerctl previous";
-          "XF86AudioStop"                 = "${pkgs.playerctl}/bin/playerctl stop";
-          "super + m; {N,n,p}"            = "${pkgs.playerctl}/bin/playerctl {previous,next,play-pause}";
+          "XF86AudioPlay"                 = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox play-pause";
+          "XF86AudioNext"                 = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox next";
+          "XF86AudioPrev"                 = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox previous";
+          "XF86AudioStop"                 = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox stop";
+          "super + m; {N,n,p}"            = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox {previous,next,play-pause}";
         };
       };
     };
