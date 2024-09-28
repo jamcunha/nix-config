@@ -7,7 +7,9 @@
   };
 
   config = lib.mkIf config.neovim.enable {
-    home-manager.users.${config.user} = {
+    home-manager.users.${config.user} = { config, ... }: let
+      inherit (config.lib.file) mkOutOfStoreSymlink;
+    in {
       home.packages = with pkgs; [
         neovim
 
@@ -20,10 +22,7 @@
 
       home.sessionVariables.EDITOR = "nvim";
 
-      xdg.configFile."nvim" = {
-        source = ../../nvim;
-        recursive = true;
-      };
+      xdg.configFile.nvim.source = mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/nvim";
     };
   };
 }

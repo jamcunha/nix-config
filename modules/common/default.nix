@@ -77,6 +77,7 @@
 
         qbittorrent
 
+        calibre
         evince
         gimp
         onlyoffice-bin
