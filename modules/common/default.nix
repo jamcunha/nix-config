@@ -10,6 +10,7 @@
     ./alacritty.nix
     ./direnv.nix
     ./git.nix
+    ./kanata.nix
     ./mpv.nix
     ./nixpkgs.nix
     ./nvim.nix
