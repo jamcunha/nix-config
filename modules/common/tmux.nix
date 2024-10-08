@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
   tmux-sessionizer = pkgs.writeShellScriptBin "tmux-sessionizer" ''
     if [[ $# -eq 1 ]]; then
         selected=$1
@@ -27,7 +33,7 @@ in
 
   config = lib.mkIf (config.gui.enable && config.tmux.enable) {
     home-manager.users.${config.user} = {
-      home.packages = with pkgs; [
+      home.packages = [
         tmux-sessionizer
       ];
 

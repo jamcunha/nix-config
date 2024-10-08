@@ -163,6 +163,24 @@ return {
       tailwindcss = {
         autostart = false, -- to heavy
       },
+
+      nixd = {
+        settings = {
+          nixd = {
+            formatting = {
+              command = { "nixfmt" },
+            },
+            options = {
+              nixos = {
+                expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.k-on.options',
+              },
+              home_manager = {
+                expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."ruixi@k-on".options',
+              },
+            },
+          },
+        },
+      },
     }
 
     -- NOTE: Not used with NixOS (can be used with nix-ld [https://github.com/nix-community/nix-ld])

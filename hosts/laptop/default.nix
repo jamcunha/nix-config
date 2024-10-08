@@ -1,4 +1,9 @@
-{ inputs, globals, lib, ... }:
+{
+  inputs,
+  globals,
+  lib,
+  ...
+}:
 
 lib.nixosSystem {
   system = "x86_64-linux";
@@ -37,7 +42,6 @@ lib.nixosSystem {
       };
     }
 
-
     ../../modules/common
     ../../modules/nixos
 
@@ -47,7 +51,14 @@ lib.nixosSystem {
 
       boot = {
         initrd = {
-          availableKernelModules = [ "xhci_pci" "ahci" "nvme" "usb_storage" "usbhid" "sd_mod" ];
+          availableKernelModules = [
+            "xhci_pci"
+            "ahci"
+            "nvme"
+            "usb_storage"
+            "usbhid"
+            "sd_mod"
+          ];
           kernelModules = [ ];
         };
 
@@ -67,14 +78,17 @@ lib.nixosSystem {
 
       # ---- Sort this -----------------------
 
-      environment.systemPackages = let
-        pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
-      in with pkgs; [
-        # TODO: add to a keybind
-        brightnessctl
+      environment.systemPackages =
+        let
+          pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+        in
+        with pkgs;
+        [
+          # TODO: add to a keybind
+          brightnessctl
 
-        mcontrolcenter # MSI Control Center
-      ];
+          mcontrolcenter # MSI Control Center
+        ];
 
       # not for steam but for useful options
       programs.steam.enable = true;

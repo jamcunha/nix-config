@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  pkgs,
+  ...
+}:
 
 {
   config = {
@@ -13,7 +17,7 @@
 
         shellAliases = {
           ls = "${pkgs.eza}/bin/eza -lah --color=always --group-directories-first";
-          vim = "nvim";
+          vim = "nvim"; # assumes nvim is installed
           cat = "${pkgs.bat}/bin/bat";
         };
 

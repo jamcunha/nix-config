@@ -1,9 +1,15 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 # NOTE: This is completely shit code, pls refactor later (and find a way to get spicetify-nix to here)
 
 {
-  options.spotify = { enable = lib.mkEnableOption {
+  options.spotify = {
+    enable = lib.mkEnableOption {
       description = "Enable Spotify";
       default = false;
     };
@@ -33,20 +39,22 @@
       #   spotify
       # ];
 
-      programs.spicetify = let
-        spicePkgs = config.spotify.spicetify.input.legacyPackages.${pkgs.system};
-      in {
-        enable = true;
+      programs.spicetify =
+        let
+          spicePkgs = config.spotify.spicetify.input.legacyPackages.${pkgs.system};
+        in
+        {
+          enable = true;
 
-        enabledExtensions = with spicePkgs.extensions; [
-          adblock
+          enabledExtensions = with spicePkgs.extensions; [
+            adblock
 
-          shuffle
-          beautifulLyrics
-        ];
+            shuffle
+            beautifulLyrics
+          ];
 
-        theme = spicePkgs.themes.spotifyNoPremium;
-      };
+          theme = spicePkgs.themes.spotifyNoPremium;
+        };
     };
   };
 }

@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
   bspwm-change-workspace = pkgs.writeShellScriptBin "bspwm-change-workspace" ''
     monitor=$(${pkgs.bspwm}/bin/bspc query -M -m focused --names)
 
@@ -45,12 +51,34 @@ in
 
         # find a way to make monitors dynamic
         monitors = {
-          eDP-1 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
-          HDMI-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
+          eDP-1 = [
+            "1"
+            "2"
+            "3"
+            "4"
+            "5"
+            "6"
+            "7"
+            "8"
+            "9"
+            "10"
+          ];
+          HDMI-2 = [
+            "1"
+            "2"
+            "3"
+            "4"
+            "5"
+            "6"
+            "7"
+            "8"
+            "9"
+            "10"
+          ];
 
           # when nvidia is enabled (laptop specific, still need to find a better way)
-          eDP-1-1 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
-          HDMI-1-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
+          # eDP-1-1 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
+          # HDMI-1-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
         };
 
         rules = {
@@ -71,7 +99,7 @@ in
 
           pointer_modifier = "mod1";
 
-          split_ratio = 0.50;
+          split_ratio = 0.5;
           borderless_monocle = true;
           gapless_monocle = true;
 
@@ -89,38 +117,40 @@ in
 
       services.sxhkd = {
         enable = true;
-        keybindings = {
-          "super + Return"                = "${pkgs.alacritty}/bin/alacritty";
-          "super + p"                     = config.gui.launcherCmd;
-          "super + {b,shift + b}"         = "{${pkgs.firefox}/bin/firefox, ${pkgs.firefox}/bin/firefox --private-window}";
-          "super + f"                     = "${pkgs.xfce.thunar}/bin/thunar";
-          "super + shift + s"             = "${pkgs.scrot}/bin/scrot -s -f -z -e '${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i $f && rm $f'";
-          "super + shift + Return"        = "${bspwm-scratchterm}/bin/bspwm-scratchterm";
+        keybindings =
+          {
+            "super + Return" = "${pkgs.alacritty}/bin/alacritty";
+            "super + p" = config.gui.launcherCmd;
+            "super + {b,shift + b}" = "{${pkgs.firefox}/bin/firefox, ${pkgs.firefox}/bin/firefox --private-window}";
+            "super + f" = "${pkgs.xfce.thunar}/bin/thunar";
+            "super + shift + s" = "${pkgs.scrot}/bin/scrot -s -f -z -e '${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i $f && rm $f'";
+            "super + shift + Return" = "${bspwm-scratchterm}/bin/bspwm-scratchterm";
 
-          "super + shift + r"             = "${pkgs.bspwm}/bin/bspc wm -r";
+            "super + shift + r" = "${pkgs.bspwm}/bin/bspc wm -r";
 
-          "super + shift + q"             = config.gui.powermenuCmd;
-          "super + shift + c"             = "${pkgs.bspwm}/bin/bspc node -c";
-          "super + y"                     = "${pkgs.bspwm}/bin/bspc node -s biggest.window";
-          "super + {t,shift + t}"         = "${pkgs.bspwm}/bin/bspc node -t {tiled,pseudo_tiled}";
-          "super + shift + @space"        = "${pkgs.bspwm}/bin/bspc node -t floating";
-          "super + shift + f"             = "${pkgs.bspwm}/bin/bspc node -t fullscreen";
-          "super + {_,shift + }{h,j,k,l}" = "${pkgs.bspwm}/bin/bspc node -{f,s} {west,south,north,east}";
-          "super + {1-9,0}"               = "${bspwm-change-workspace}/bin/bspwm-change-workspace {1-9,10}";
-          "super + shift + {1-9,0}"       = "${bspwm-move-workspace}/bin/bspwm-move-workspace {1-9,10}";
-          "super + ctrl + {h,j,k,l}"      = "${pkgs.bspwm}/bin/bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}";
-          "super + {Left, Right}"         = "${pkgs.bspwm}/bin/bspc monitor -f {prev,next}";
-        } // lib.optionalAttrs config.soundCfg.enable {
-          "XF86AudioRaiseVolume"        = config.soundCfg.volumeUp;
-          "XF86AudioLowerVolume"        = config.soundCfg.volumeDown;
-          "XF86AudioMute"               = config.soundCfg.volumeToggle;
+            "super + shift + q" = config.gui.powermenuCmd;
+            "super + shift + c" = "${pkgs.bspwm}/bin/bspc node -c";
+            "super + y" = "${pkgs.bspwm}/bin/bspc node -s biggest.window";
+            "super + {t,shift + t}" = "${pkgs.bspwm}/bin/bspc node -t {tiled,pseudo_tiled}";
+            "super + shift + @space" = "${pkgs.bspwm}/bin/bspc node -t floating";
+            "super + shift + f" = "${pkgs.bspwm}/bin/bspc node -t fullscreen";
+            "super + {_,shift + }{h,j,k,l}" = "${pkgs.bspwm}/bin/bspc node -{f,s} {west,south,north,east}";
+            "super + {1-9,0}" = "${bspwm-change-workspace}/bin/bspwm-change-workspace {1-9,10}";
+            "super + shift + {1-9,0}" = "${bspwm-move-workspace}/bin/bspwm-move-workspace {1-9,10}";
+            "super + ctrl + {h,j,k,l}" = "${pkgs.bspwm}/bin/bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}";
+            "super + {Left, Right}" = "${pkgs.bspwm}/bin/bspc monitor -f {prev,next}";
+          }
+          // lib.optionalAttrs config.soundCfg.enable {
+            "XF86AudioRaiseVolume" = config.soundCfg.volumeUp;
+            "XF86AudioLowerVolume" = config.soundCfg.volumeDown;
+            "XF86AudioMute" = config.soundCfg.volumeToggle;
 
-          "XF86AudioPlay"                 = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox play-pause";
-          "XF86AudioNext"                 = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox next";
-          "XF86AudioPrev"                 = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox previous";
-          "XF86AudioStop"                 = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox stop";
-          "super + m; {N,n,p}"            = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox {previous,next,play-pause}";
-        };
+            "XF86AudioPlay" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox play-pause";
+            "XF86AudioNext" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox next";
+            "XF86AudioPrev" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox previous";
+            "XF86AudioStop" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox stop";
+            "super + m; {N,n,p}" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox {previous,next,play-pause}";
+          };
       };
     };
   };

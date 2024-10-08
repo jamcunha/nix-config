@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   imports = [
@@ -36,109 +41,112 @@
     };
   };
 
-  config = let
-    stateVersion = "24.05";
-  in {
-    # Host independant packages
-    environment.systemPackages = with pkgs; [
-      git
-      wget
-      curl
-    ];
-
-    home-manager.useGlobalPkgs = true;
-    home-manager.useUserPackages = true;
-
-    # Go towards the commented code, for now allow all
-    # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.unfreePackages;
-    nixpkgs.config.allowUnfree = true;
-
-    home-manager.users.${config.user} = {
-      home.username = config.user;
-      home.homeDirectory = if pkgs.stdenv.isDarwin then "/Users/${config.user}" else "/home/${config.user}";
-
-      # TODO: Check for better way to handle the configuration below ----------------------------------
-
-      home.packages = with pkgs; [
-        feh
-        nitrogen
-
-        # TODO: (?) add a zsh function to extract any type of archive
-        unzip
-        zip
-
-        fzf
-        ripgrep
-        tldr
-        tree
-
-        # TODO: check vencord
-        discord
-
-        qbittorrent
-
-        calibre
-        evince
-        gimp
-        onlyoffice-bin
-        pavucontrol
-        xfce.thunar
-
-        xorg.xkill
-        killall
-
-        gnugrep
-        htop
-
-        # TODO: (?) add config
-        firefox
-
-        # TODO: check gaming specialization
-        (lutris.override {
-          extraPkgs = pkgs: [
-            wineWowPackages.stable
-            winetricks
-          ];
-        })
-
-        (prismlauncher.override {
-          jdks = [
-            temurin-bin-8
-            temurin-bin-17
-            temurin-bin-21
-          ];
-        })
-
-        protonup
+  config =
+    let
+      stateVersion = "24.05";
+    in
+    {
+      # Host independant packages
+      environment.systemPackages = with pkgs; [
+        git
+        wget
+        curl
       ];
 
-      home.sessionVariables = {
-        BROWSER = "firefox";
-        TERM = "xterm-256color";
+      home-manager.useGlobalPkgs = true;
+      home-manager.useUserPackages = true;
 
-        # STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
-      };
+      # Go towards the commented code, for now allow all
+      # nixpkgs.config.allowUnfreePredicate = pkg: builtins.elem (lib.getName pkg) config.unfreePackages;
+      nixpkgs.config.allowUnfree = true;
 
-      xdg.mimeApps = {
-        enable = true;
+      home-manager.users.${config.user} = {
+        home.username = config.user;
+        home.homeDirectory =
+          if pkgs.stdenv.isDarwin then "/Users/${config.user}" else "/home/${config.user}";
 
-        associations.added = {
-          "application/pdf" = "evince.desktop";
-          "text/html" = "firefox.desktop";
+        # TODO: Check for better way to handle the configuration below ----------------------------------
+
+        home.packages = with pkgs; [
+          feh
+          nitrogen
+
+          # TODO: (?) add a zsh function to extract any type of archive
+          unzip
+          zip
+
+          fzf
+          ripgrep
+          tldr
+          tree
+
+          # TODO: check vencord
+          discord
+
+          qbittorrent
+
+          calibre
+          evince
+          gimp
+          onlyoffice-bin
+          pavucontrol
+          xfce.thunar
+
+          xorg.xkill
+          killall
+
+          gnugrep
+          htop
+
+          # TODO: (?) add config
+          firefox
+
+          # TODO: check gaming specialization
+          (lutris.override {
+            extraPkgs = pkgs: [
+              wineWowPackages.stable
+              winetricks
+            ];
+          })
+
+          (prismlauncher.override {
+            jdks = [
+              temurin-bin-8
+              temurin-bin-17
+              temurin-bin-21
+            ];
+          })
+
+          protonup
+        ];
+
+        home.sessionVariables = {
+          BROWSER = "firefox";
+          TERM = "xterm-256color";
+
+          # STEAM_EXTRA_COMPAT_TOOLS_PATHS = "\${HOME}/.steam/root/compatibilitytools.d";
         };
 
-        defaultApplications = {
-          "application/pdf" = "org.gnome.Evince.desktop";
-          "text/html" = "firefox.desktop";
+        xdg.mimeApps = {
+          enable = true;
+
+          associations.added = {
+            "application/pdf" = "evince.desktop";
+            "text/html" = "firefox.desktop";
+          };
+
+          defaultApplications = {
+            "application/pdf" = "org.gnome.Evince.desktop";
+            "text/html" = "firefox.desktop";
+          };
         };
+
+        # -------------------------------------------------------
+
+        home.stateVersion = stateVersion;
+        programs.home-manager.enable = true;
       };
 
-      # -------------------------------------------------------
-
-      home.stateVersion = stateVersion;
-      programs.home-manager.enable = true;
+      home-manager.users.root.home.stateVersion = stateVersion;
     };
-
-    home-manager.users.root.home.stateVersion = stateVersion;
-  };
 }

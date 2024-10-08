@@ -1,4 +1,10 @@
-{ config, lib, pkgs, ... }: let
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
+let
   ifGroupExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
@@ -15,6 +21,8 @@ in
       isNormalUser = true;
       initialPassword = "123"; # Change after installation
 
+      # TODO: maybe add hashed password
+
       extraGroups = ifGroupExists config.userGroups ++ [ "wheel" ];
 
       packages = [ pkgs.home-manager ];
@@ -27,7 +35,7 @@ in
       userDirs = {
         enable = true;
         createDirectories = true;
-        
+
         music = null;
         publicShare = null;
         templates = null;

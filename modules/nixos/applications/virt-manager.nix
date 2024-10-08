@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   options.virt-manager.enable = lib.mkEnableOption {
@@ -20,7 +25,6 @@
         uris = [ "qemu:///system" ];
       };
     };
-
 
     userGroups = [ "libvirtd" ];
 

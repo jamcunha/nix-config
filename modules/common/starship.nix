@@ -8,36 +8,37 @@
 
   config = {
     home-manager.users.${config.user} = {
-      programs.starship = let
-        promptOrder = [
-          "character"
-          "directory"
-          "git_branch"
-          "git_status"
-          "nix_shell"
-        ];
+      programs.starship =
+        let
+          promptOrder = [
+            "character"
+            "directory"
+            "git_branch"
+            "git_status"
+            "nix_shell"
+          ];
 
-        promptFormat = lib.concatStrings (map (s: "\$${s}") promptOrder);
-      in
-      {
-        enable = true;
+          promptFormat = lib.concatStrings (map (s: "\$${s}") promptOrder);
+        in
+        {
+          enable = true;
 
-        settings = {
-          add_newline = false;
+          settings = {
+            add_newline = false;
 
-          format = promptFormat;
+            format = promptFormat;
 
-          character = {
-            success_symbol = "[➜](bold green) ";
-            error_symbol = "[➜](bold red) ";
-          };
+            character = {
+              success_symbol = "[➜](bold green) ";
+              error_symbol = "[➜](bold red) ";
+            };
 
-          git_branch = {
-            format = "[git:\\([$branch](bold red)\\)]($style) ";
-            style = "bold blue";
+            git_branch = {
+              format = "[git:\\([$branch](bold red)\\)]($style) ";
+              style = "bold blue";
+            };
           };
         };
-      };
     };
   };
 }

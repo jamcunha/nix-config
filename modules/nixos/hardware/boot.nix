@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf pkgs.stdenv.isLinux {
@@ -9,7 +13,7 @@
       };
 
       # Windows drive support
-      supportedFilesystems = [ "ntfs" ];
+      # supportedFilesystems = [ "ntfs" ];
 
       # Use latest kernel
       kernelPackages = lib.mkDefault pkgs.linuxPackages_latest;

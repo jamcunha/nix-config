@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf pkgs.stdenv.isLinux {

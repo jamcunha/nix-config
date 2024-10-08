@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf (config.gui.enable && config.soundCfg.enable && pkgs.stdenv.isLinux) {

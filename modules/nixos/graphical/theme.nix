@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf config.gui.enable {
@@ -33,27 +38,28 @@
     # };
 
     home-manager.users.${config.user} = {
-      gtk = let
-        gtkExtraConfig = {
-          gtk-application-prefer-dark-theme = true;
-        };
-      in {
-        enable = true;
+      gtk =
+        let
+          gtkExtraConfig = {
+            gtk-application-prefer-dark-theme = true;
+          };
+        in
+        {
+          enable = true;
 
-        # TODO: changed with update
-        theme = {
-          name = "Tokyonight-Dark";
-          package = pkgs.tokyonight-gtk-theme;
-        };
+          theme = {
+            name = "Tokyonight-Dark";
+            package = pkgs.tokyonight-gtk-theme;
+          };
 
-        iconTheme = {
-          name = "Papirus-Dark";
-          package = pkgs.papirus-icon-theme;
-        };
+          iconTheme = {
+            name = "Papirus-Dark";
+            package = pkgs.papirus-icon-theme;
+          };
 
-        gtk3.extraConfig = gtkExtraConfig;
-        gtk4.extraConfig = gtkExtraConfig;
-      };
+          gtk3.extraConfig = gtkExtraConfig;
+          gtk4.extraConfig = gtkExtraConfig;
+        };
 
       home.pointerCursor = {
         name = "Bibata-Modern-Classic";

@@ -1,4 +1,8 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  ...
+}:
 
 {
   options.alacritty.enable = lib.mkEnableOption {
@@ -30,7 +34,7 @@
               family = "FiraMono Nerd Font";
               style = "Italic";
             };
-            
+
             bold_italic = {
               family = "FiraMono Nerd Font";
               style = "Bold Italic";

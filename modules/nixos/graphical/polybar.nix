@@ -1,4 +1,9 @@
-{ config, lib, pkgs, ... }:
+{
+  config,
+  lib,
+  pkgs,
+  ...
+}:
 
 {
   config = lib.mkIf (pkgs.stdenv.isLinux && config.services.xserver.enable) {
@@ -15,7 +20,7 @@
           polybar-msg cmd quit
           # Otherwise you can use the nuclear option:
           # killall -q polybar
-          
+
           # Launch bar1
           echo "---" | ${pkgs.coreutils}/bin/tee -a /tmp/polybar.log
 
