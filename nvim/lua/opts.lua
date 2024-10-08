@@ -6,10 +6,10 @@ vim.opt.lazyredraw = true
 
 vim.opt.autoindent = true
 vim.opt.smartindent = true
-vim.opt.expandtab = true	-- Convert tab to spaces
-vim.opt.shiftwidth = 4		-- Number of spaces of the indentation
-vim.opt.tabstop = 4			-- Number of spaces of the indentation
-vim.opt.smarttab = true		-- Tab with the number of spaces equal to tabstop
+vim.opt.expandtab = true -- Convert tab to spaces
+vim.opt.shiftwidth = 4   -- Number of spaces of the indentation
+vim.opt.tabstop = 4      -- Number of spaces of the indentation
+vim.opt.smarttab = true  -- Tab with the number of spaces equal to tabstop
 
 -- Don't show the mode, since it's already in the status line
 vim.opt.showmode = false

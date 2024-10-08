@@ -16,6 +16,7 @@
         fd # (better find) (used in neovim?)
         nodejs_22 # for copilot (maybe add an overlay)
         jq # Think lsp's use it (test later)
+        tree-sitter # executable for nvim-treesitter
       ];
 
       programs.git.extraConfig.core.editor = "nvim";

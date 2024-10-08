@@ -112,10 +112,6 @@
         protonup
       ];
 
-      home.file = {
-
-      };
-
       home.sessionVariables = {
         BROWSER = "firefox";
         TERM = "xterm-256color";
