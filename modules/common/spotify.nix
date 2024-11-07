@@ -50,7 +50,11 @@
             adblock
 
             shuffle
-            beautifulLyrics
+            # beautifulLyrics
+          ];
+
+          enabledCustomApps = with spicePkgs.apps; [
+            lyricsPlus
           ];
 
           theme = spicePkgs.themes.spotifyNoPremium;
