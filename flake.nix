@@ -73,9 +73,7 @@
               git
 
               lua
-              lua-language-server
 
-              nixd
               nixfmt-rfc-style
             ];
           };

@@ -123,7 +123,7 @@ lib.nixosSystem {
       };
 
       # Need to use this more (feel a lot of lag)
-      # kanata.enable = true;
+      kanata.enable = true;
 
       # temp
       starship.enable = true;
