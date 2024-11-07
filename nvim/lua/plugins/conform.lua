@@ -17,7 +17,8 @@ return {
   opts = {
     notify_on_error = false,
     format_on_save = function(bufnr)
-      local ignore_filetypes = { "python" }
+      -- TODO: maybe add a list of filetypes to format on save instead of ignoring
+      local ignore_filetypes = { "python", "c", "cpp", "h", "hpp" }
       if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
         return nil
       end

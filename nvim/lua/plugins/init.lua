@@ -10,7 +10,7 @@ vim.opt.rtp:prepend(lazypath)
 -- [[ Configure and install plugins ]]
 
 require("lazy").setup({
-  "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
+  -- "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
   { "github/copilot.vim" },
 
@@ -69,6 +69,45 @@ require("lazy").setup({
     },
   },
 
+  -- Java LSP Test
+  -- NOTE: for some reason it needs gcc to be installed.
+  {
+    "nvim-java/nvim-java",
+    config = false,
+    dependencies = {
+      {
+        "neovim/nvim-lspconfig",
+        opts = {
+          servers = {
+            jdtls = {},
+          },
+          setup = {
+            jdtls = function()
+              require("java").setup({
+                jdk = {
+                  auto_install = false,
+                },
+                root_markers = {
+                  "settings.gradle",
+                  "settings.gradle.kts",
+                  "pom.xml",
+                  "build.gradle",
+                  "mvnw",
+                  "gradlew",
+                  "build.gradle",
+                  "build.gradle.kts",
+                },
+                java_debug_adapter = {
+                  enable = false,
+                },
+              })
+            end
+          },
+        },
+      },
+    },
+  },
+
   require "plugins.lsp",
   require "plugins.cmp",
   require "plugins.trouble",
@@ -76,6 +115,8 @@ require("lazy").setup({
   require "plugins.telescope",
   require "plugins.conform",
   require "plugins.mini",
+
+  require "kickstart.plugins.neo-tree"
 }, {
   ui = {
     -- If you are using a Nerd Font: set icons to an empty table which will use the

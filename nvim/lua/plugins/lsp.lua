@@ -2,15 +2,15 @@
 return {
   "neovim/nvim-lspconfig",
   dependencies = {
-    -- NOTE: Not used with NixOS (can be used with nix-ld [https://github.com/nix-community/nix-ld])
+    -- NOTE: Needs nix-ld for NixOS.
     --
     -- Automatically install LSPs and related tools to stdpath for Neovim
-    -- { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
-    -- "williamboman/mason-lspconfig.nvim",
-    -- "WhoIsSethDaniel/mason-tool-installer.nvim",
+    { "williamboman/mason.nvim", config = true }, -- NOTE: Must be loaded before dependants
+    "williamboman/mason-lspconfig.nvim",
+    "WhoIsSethDaniel/mason-tool-installer.nvim",
 
     -- Useful status updates for LSP.
-    { "j-hui/fidget.nvim", opts = {} },
+    { "j-hui/fidget.nvim",       opts = {} },
   },
   config = function()
     vim.api.nvim_create_autocmd("LspAttach", {
@@ -50,11 +50,7 @@ return {
 
         -- Fuzzy find all the symbols in your current workspace.
         --  Similar to document symbols, except searches over your entire project.
-        map(
-          "<leader>ws",
-          require("telescope.builtin").lsp_dynamic_workspace_symbols,
-          "[W]orkspace [S]ymbols"
-        )
+        map("<leader>ws", require("telescope.builtin").lsp_dynamic_workspace_symbols, "[W]orkspace [S]ymbols")
 
         -- Rename the variable under your cursor.
         --  Most Language Servers support renaming across files, etc.
@@ -114,7 +110,11 @@ return {
     capabilities = vim.tbl_deep_extend("force", capabilities, require("cmp_nvim_lsp").default_capabilities())
 
     local servers = {
-      clangd = {},
+      clangd = {
+        capabilities = {
+          offsetEncoding = { "utf-16" },
+        },
+      },
       gopls = {
         settings = {
           gopls = {
@@ -144,7 +144,8 @@ return {
         },
       },
       rust_analyzer = {},
-      tsserver = {},
+      ts_ls = {},
+      emmet_ls = {},
 
       lua_ls = {
         settings = {
@@ -164,18 +165,20 @@ return {
         autostart = false, -- to heavy
       },
 
-      nixd = {
+      nil_ls = {
         settings = {
-          nixd = {
+          nil_ls = {
             formatting = {
               command = { "nixfmt" },
             },
             options = {
               nixos = {
-                expr = '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.k-on.options',
+                expr =
+                '(builtins.getFlake ("git+file://" + toString ./.)).nixosConfigurations.k-on.options',
               },
               home_manager = {
-                expr = '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."ruixi@k-on".options',
+                expr =
+                '(builtins.getFlake ("git+file://" + toString ./.)).homeConfigurations."ruixi@k-on".options',
               },
             },
           },
@@ -183,28 +186,49 @@ return {
       },
     }
 
-    -- NOTE: Not used with NixOS (can be used with nix-ld [https://github.com/nix-community/nix-ld])
-    --
-    -- require("mason").setup()
-    --
-    -- local ensure_installed = vim.tbl_keys(servers or {})
-    -- vim.list_extend(ensure_installed, {
-    -- 	-- "stylua", -- Used to format Lua code
-    -- })
-    -- require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+    -- NOTE: Needs nix-ld for NixOS.
+    require("mason").setup()
 
-    -- require("mason-lspconfig").setup({
-    -- 	handlers = {
-    -- 		function(server_name)
-    -- 			local server = servers[server_name] or {}
-    -- 			-- This handles overriding only values explicitly passed
-    -- 			-- by the server configuration above. Useful when disabling
-    -- 			-- certain features of an LSP (for example, turning off formatting for tsserver)
-    -- 			server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
-    -- 			require("lspconfig")[server_name].setup(server)
-    -- 		end,
-    -- 	},
-    -- })
+    -- clangd from Mason is problematic on NixOS
+    local ensure_installed = vim.tbl_filter(function(server)
+      return server ~= "clangd"
+    end, vim.tbl_keys(servers or {}))
+
+    vim.list_extend(ensure_installed, {
+      -- Lua
+      -- "stylua", -- Formatter
+
+      -- Go
+      "gofumpt",           -- Formatter
+      "goimports-reviser", -- Sorts imports
+      "golines",           -- Formats long lines
+      "gomodifytags",      -- Struct tags
+
+      -- Python
+      "black", -- Formatter
+      "isort", -- Sorts imports
+
+      -- Javascript / Typescript
+      "prettierd", -- Formatter
+
+      -- NOTE: nixfmt is not available in Mason
+      -- Nix
+      -- "nixfmt", -- Formatter
+    })
+    require("mason-tool-installer").setup({ ensure_installed = ensure_installed })
+
+    require("mason-lspconfig").setup({
+      handlers = {
+        function(server_name)
+          local server = servers[server_name] or {}
+          -- This handles overriding only values explicitly passed
+          -- by the server configuration above. Useful when disabling
+          -- certain features of an LSP (for example, turning off formatting for tsserver)
+          server.capabilities = vim.tbl_deep_extend("force", {}, capabilities, server.capabilities or {})
+          require("lspconfig")[server_name].setup(server)
+        end,
+      },
+    })
 
     local lspconfig = require("lspconfig")
     for server_name, server in pairs(servers) do
