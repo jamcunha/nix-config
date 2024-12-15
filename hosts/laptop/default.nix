@@ -21,11 +21,16 @@ lib.nixosSystem {
 
     # GPU Settings
     {
-      imports = [ inputs.hardware.nixosModules.common-gpu-nvidia ];
+      imports = [
+          inputs.hardware.nixosModules.common-gpu-nvidia
+      ];
 
       hardware.nvidia = {
         # FIX: avoid freezes with recent nvidia drivers
         open = true;
+
+        # test
+        # package = config.boot.kernelPackages.nvidiaPackages.beta;
 
         prime = {
           intelBusId = "PCI:0:2:0";
@@ -70,7 +75,10 @@ lib.nixosSystem {
       hardware.enableRedistributableFirmware = true;
       hardware.cpu.intel.updateMicrocode = true;
 
-      powerManagement.cpuFreqGovernor = "ondemand";
+      powerManagement = {
+          enable = true;
+          cpuFreqGovernor = "ondemand";
+      };
 
       userGroups = [
         "networkmanager"
