@@ -24,7 +24,7 @@ return {
     -- - gcip - Toggle [C]omment [I]nner [P]aragraph
     -- - gcc  - Toggle [C]omment [C]urrent line
     -- - dgc  - [D]elete [C]omment
-    require("mini.comment").setup()
+    -- require("mini.comment").setup()
 
     -- Highlight patterns (maybe change with NVChad/nvim-colorizer.lua)
     local hipatterns = require "mini.hipatterns"

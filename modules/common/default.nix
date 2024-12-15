@@ -96,6 +96,7 @@
           xorg.xkill
           killall
 
+          binutils
           gnugrep
           htop
 

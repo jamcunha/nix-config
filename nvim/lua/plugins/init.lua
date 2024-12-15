@@ -12,6 +12,8 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
   -- "tpope/vim-sleuth", -- Detect tabstop and shiftwidth automatically
 
+  { "numToStr/Comment.nvim", opts = {} },
+
   { "github/copilot.vim" },
 
   { -- Adds git related signs to the gutter, as well as utilities for managing changes

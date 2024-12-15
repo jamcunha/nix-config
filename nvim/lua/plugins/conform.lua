@@ -18,7 +18,7 @@ return {
     notify_on_error = false,
     format_on_save = function(bufnr)
       -- TODO: maybe add a list of filetypes to format on save instead of ignoring
-      local ignore_filetypes = { "python", "c", "cpp", "h", "hpp" }
+      local ignore_filetypes = { "python" }
       if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
         return nil
       end
@@ -31,8 +31,9 @@ return {
     formatters_by_ft = {
       lua = { "stylua" },
       go = { "goimports_reviser", "gofumpt", "golines" },
-      -- Conform can also run multiple formatters sequentially
       python = { "isort", "black" },
+      c = { "clang-format" },
+      cpp = { "clang-format" },
       -- javascript = { "prettierd", "prettier", stop_after_first = true },
     },
   },
