@@ -12,17 +12,13 @@
 
       packages = with pkgs; [
         font-awesome
-        (nerdfonts.override {
-          fonts = [
-            "FiraCode"
-            "FiraMono"
-            "Hack"
-            "Iosevka"
-            "IosevkaTerm"
-            "IosevkaTermSlab"
-            "JetBrainsMono"
-          ];
-        })
+        nerd-fonts.fira-code
+        nerd-fonts.fira-mono
+        nerd-fonts.hack
+        nerd-fonts.iosevka
+        nerd-fonts.iosevka-term
+        nerd-fonts.iosevka-term-slab
+        nerd-fonts.jetbrains-mono
       ];
     };
 
