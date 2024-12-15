@@ -24,7 +24,8 @@ lib.nixosSystem {
       imports = [ inputs.hardware.nixosModules.common-gpu-nvidia ];
 
       hardware.nvidia = {
-        open = false;
+        # FIX: avoid freezes with recent nvidia drivers
+        open = true;
 
         prime = {
           intelBusId = "PCI:0:2:0";
