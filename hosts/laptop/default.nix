@@ -18,38 +18,31 @@ lib.nixosSystem {
     inputs.hardware.nixosModules.common-cpu-intel
     inputs.hardware.nixosModules.common-gpu-intel-comet-lake
     inputs.hardware.nixosModules.common-pc-ssd
+    inputs.hardware.nixosModules.common-gpu-nvidia
 
     # GPU Settings
-    {
-      imports = [
-          inputs.hardware.nixosModules.common-gpu-nvidia
-      ];
-
-      hardware.nvidia = {
-        # FIX: avoid freezes with recent nvidia drivers
-        open = true;
-
-        # test
-        # package = config.boot.kernelPackages.nvidiaPackages.beta;
-
-        prime = {
-          intelBusId = "PCI:0:2:0";
-          nvidiaBusId = "PCI:2:0:0";
-        };
-      };
-
-      specialisation = {
-        no-dgpu.configuration = {
-          imports = [ inputs.hardware.nixosModules.common-gpu-nvidia-disable ];
-
-          # temp fix for temperature (?? have profiles for cpuFreqGovernor)
-          powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
-        };
-      };
-    }
+    # {
+    #   imports = [
+    #       inputs.hardware.nixosModules.common-gpu-nvidia
+    #   ];
+    #
+    #   hardware.nvidia = {
+    #     open = false;
+    #
+    #     # test
+    #     package = config.boot.kernelPackages.nvidiaPackages.production;
+    #
+    #     prime = {
+    #       intelBusId = "PCI:0:2:0";
+    #       nvidiaBusId = "PCI:2:0:0";
+    #     };
+    #   };
+    # }
 
     ../../modules/common
     ../../modules/nixos
+
+    ../../modules/nixos/hardware/nvidia.nix
 
     {
       networking.networkmanager.enable = true;
@@ -104,6 +97,16 @@ lib.nixosSystem {
       programs.gamemode.enable = true;
 
       # --------------------------------------
+
+      specialisation = {
+        no-dgpu.configuration = {
+          imports = [ inputs.hardware.nixosModules.common-gpu-nvidia-disable ];
+
+
+          # temp fix for temperature (?? have profiles for cpuFreqGovernor)
+          powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
+        };
+      };
 
       # NixOS related config
       gui = {

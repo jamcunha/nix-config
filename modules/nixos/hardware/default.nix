@@ -7,6 +7,8 @@
     ./sound.nix
   ];
 
+  # TODO: add nvidia driver options
+
   options = {
     soundCfg = {
       enable = lib.mkEnableOption {
