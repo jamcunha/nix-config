@@ -13,9 +13,7 @@
       open = false;
 
       # FIX: if it continues to free, try the production driver -> legacy_535
-
-      # test
-      package = config.boot.kernelPackages.nvidiaPackages.production;
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
 
       prime = {
         intelBusId = "PCI:0:2:0";
