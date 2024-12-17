@@ -12,8 +12,10 @@
     hardware.nvidia = {
       open = false;
 
-      # FIX: if it continues to free, try the production driver -> legacy_535
-      package = config.boot.kernelPackages.nvidiaPackages.legacy_535;
+      # FIX: random game and mpv freezes with nvidia
+      # tested stable and production drivers. legacy_535 is incompatible with dxvk
+      # hoping beta drivers will fix the issue
+      package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       prime = {
         intelBusId = "PCI:0:2:0";
