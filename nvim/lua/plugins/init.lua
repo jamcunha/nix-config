@@ -14,7 +14,7 @@ require("lazy").setup({
 
   { "numToStr/Comment.nvim", opts = {} },
 
-  { "github/copilot.vim" },
+  -- { "github/copilot.vim" },
 
   { -- Adds git related signs to the gutter, as well as utilities for managing changes
     "lewis6991/gitsigns.nvim",

@@ -120,6 +120,8 @@
           })
 
           protonup
+
+          appimage-run
         ];
 
         home.sessionVariables = {

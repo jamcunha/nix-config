@@ -13,8 +13,8 @@
       open = false;
 
       # FIX: random game and mpv freezes with nvidia
-      # tested stable and production drivers. legacy_535 is incompatible with dxvk
-      # hoping beta drivers will fix the issue
+      #      tested stable, production and beta drivers (all the same)
+      #      think it's beacause of dxvk, testing without using it (if it works change to stable)
       package = config.boot.kernelPackages.nvidiaPackages.beta;
 
       prime = {
