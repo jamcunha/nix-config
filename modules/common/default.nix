@@ -122,6 +122,9 @@
           protonup
 
           appimage-run
+
+          # "device agnostic airdrop"
+          localsend
         ];
 
         home.sessionVariables = {
