@@ -72,16 +72,16 @@ in
           bind - split-window -v
 
           # Kill Pane
-          bind \; kill-pane
+          bind x kill-pane
 
           # Kill Window
-          bind \: kill-window
+          bind X kill-window
 
           # Navigate Windows
           bind -n M-h previous-window
           bind -n M-l next-window
 
-          # Run tmux-sessionizer
+          # Run tmux-sessionizer (don't know why it does not work as expected)
           bind-key -r f run-shell "${pkgs.tmux}/bin/tmux neww ${tmux-sessionizer}/bin/tmux-sessionizer"
 
           # Copy mode
