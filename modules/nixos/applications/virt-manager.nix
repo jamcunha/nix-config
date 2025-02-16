@@ -6,11 +6,6 @@
 }:
 
 {
-  options.virt-manager.enable = lib.mkEnableOption {
-    description = "Enable virt-manager";
-    default = false;
-  };
-
   config = lib.mkIf (config.virt-manager.enable && pkgs.stdenv.isLinux) {
     environment.systemPackages = with pkgs; [
       virtiofsd
@@ -25,8 +20,6 @@
         uris = [ "qemu:///system" ];
       };
     };
-
-    userGroups = [ "libvirtd" ];
 
     services.qemuGuest.enable = true;
     services.spice-vdagentd.enable = true; # For clipboard sharing

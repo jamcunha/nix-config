@@ -31,12 +31,9 @@
       ...
     }@inputs:
     let
-      globals = {
-        user = "afonso";
-        fullName = "Joaquim Cunha";
-        gitName = "Joaquim Cunha";
-        gitEmail = "joaquimafonsocunha@gmail.com";
-      };
+      inherit (self) outputs;
+
+      lib = nixpkgs.lib // home-manager.lib;
 
       supportedSystems = [
         "x86_64-linux"
@@ -52,29 +49,32 @@
             pkgs = import nixpkgs { inherit system; };
           }
         );
-    in
-    rec {
+    in {
+      inherit lib;
+
       nixosConfigurations = {
-        laptop = import ./hosts/laptop {
-          inherit inputs globals;
-          lib = inputs.nixpkgs.lib;
+        laptop = lib.nixosSystem {
+          modules = [ ./hosts/laptop ];
+          specialArgs = { inherit inputs outputs; };
         };
       };
 
       homeConfigurations = {
-        laptop = nixosConfigurations.laptop.config.home-manager.users.${globals.user}.home;
+        "afonso@laptop" = lib.homeManagerConfiguration {
+          modules = [ ./hosts/laptop/home.nix ];
+          extraSpecialArgs = { inherit inputs outputs; };
+        };
       };
 
       devShells = forEachSupportedSystem (
         { pkgs }:
         {
           default = pkgs.mkShell {
+            NIX_CONFIG = "extra-experimental-features = nix-command flakes ca-derivations";
             buildInputs = with pkgs; [
               git
 
               lua
-
-              nixfmt-rfc-style
             ];
           };
         }

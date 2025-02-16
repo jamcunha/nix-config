@@ -1,45 +1,29 @@
-{
-  config,
-  lib,
-  pkgs,
-  ...
-}:
-let
+{ config, pkgs, ... }: let
   ifGroupExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
-  options = {
-    userGroups = lib.mkOption {
-      type = lib.types.listOf lib.types.str;
-      description = "List of groups that users should be added to";
-      default = [ ];
-    };
-  };
-
   config = {
-    users.users.${config.user} = {
-      isNormalUser = true;
-      initialPassword = "123"; # Change after installation
+    users = {
+      users."afonso" = {
+        isNormalUser = true;
+        initialPassword = "123"; # Change after installation
+        shell = pkgs.zsh;
 
-      # TODO: maybe add hashed password
+        # TODO: maybe add hashed password
 
-      extraGroups = ifGroupExists config.userGroups ++ [ "wheel" ];
+        extraGroups = ifGroupExists [
+          "video"
+          "docker"
+          "libvirtd"
+          "uinput"
+          "input"
+        ] ++ [ "wheel" ];
 
-      packages = [ pkgs.home-manager ];
-      openssh.authorizedKeys.keys = [ ];
-    };
-
-    home-manager.users.${config.user}.xdg = {
-      mimeApps.enable = true;
-
-      userDirs = {
-        enable = true;
-        createDirectories = true;
-
-        music = null;
-        publicShare = null;
-        templates = null;
+        packages = [ pkgs.home-manager ];
+        openssh.authorizedKeys.keys = [ ];
       };
     };
+
+    home-manager.users."afonso" = import ../../../hosts/${config.networking.hostName}/home.nix;
   };
 }

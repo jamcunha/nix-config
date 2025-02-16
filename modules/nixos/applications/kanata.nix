@@ -1,25 +1,6 @@
+{ config, lib, ... }:
 {
-  config,
-  lib,
-  ...
-}:
-{
-  # TODO: add an option to add devices
-  options.kanata.enable = lib.mkEnableOption {
-    description = "Enable Kanata";
-    default = false;
-  };
-
-  config = lib.mkIf (config.gui.enable && config.kanata.enable) {
-    users.groups.uinput = {
-      members = [ "${config.user}" ];
-    };
-
-    userGroups = [
-      "uinput"
-      "input"
-    ];
-
+  config = lib.mkIf config.kanata.enable {
     boot.initrd.services.udev.rules = ''
       KERNEL=="uinput", MODE="0660", GROUP="uinput", OPTIONs+="static_node=uinput"
     '';
