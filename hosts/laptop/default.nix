@@ -8,6 +8,8 @@
 lib.nixosSystem {
   system = "x86_64-linux";
 
+  specialArgs = { inherit inputs; };
+
   modules = [
     globals
     inputs.home-manager.nixosModules.home-manager
@@ -16,7 +18,6 @@ lib.nixosSystem {
     ./disko.nix
 
     inputs.hardware.nixosModules.common-cpu-intel
-    inputs.hardware.nixosModules.common-gpu-intel-comet-lake
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.hardware.nixosModules.common-gpu-nvidia
 
@@ -126,15 +127,8 @@ lib.nixosSystem {
       mpv.enable = true;
       neovim.enable = true;
       tmux.enable = true;
-      spotify = {
-        enable = true;
-        spicetify = {
-          enable = true;
-          input = inputs.spicetify-nix;
-        };
-      };
+      spotify.enable = true;
 
-      # Need to use this more (feel a lot of lag)
       kanata.enable = true;
 
       # temp

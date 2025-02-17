@@ -17,6 +17,7 @@
     ./spotify.nix
     ./tmux.nix
     ./zsh.nix
+    ./kdeconnect.nix
 
     # temporary
     ./starship.nix
@@ -63,12 +64,14 @@
 
       home-manager.users.${config.user} = {
         home.username = config.user;
-        home.homeDirectory =
-          if pkgs.stdenv.isDarwin then "/Users/${config.user}" else "/home/${config.user}";
+        home.homeDirectory = "/home/${config.user}";
 
         # TODO: Check for better way to handle the configuration below ----------------------------------
 
         home.packages = with pkgs; [
+          fd
+          jq
+
           feh
           nitrogen
 
@@ -138,7 +141,7 @@
           enable = true;
 
           associations.added = {
-            "application/pdf" = "evince.desktop";
+            "application/pdf" = "org.gnome.Evince.desktop";
             "text/html" = "firefox.desktop";
           };
 

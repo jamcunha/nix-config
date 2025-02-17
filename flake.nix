@@ -28,6 +28,7 @@
       hardware,
       disko,
       home-manager,
+      spicetify-nix,
       ...
     }@inputs:
     let
@@ -41,9 +42,8 @@
       supportedSystems = [
         "x86_64-linux"
         "aarch64-linux"
-        "x86_64-darwin"
-        "aarch64-darwin"
       ];
+
       forEachSupportedSystem =
         f:
         nixpkgs.lib.genAttrs supportedSystems (
@@ -66,15 +66,13 @@
       };
 
       devShells = forEachSupportedSystem (
-        { pkgs }:
-        {
+        { pkgs }: {
           default = pkgs.mkShell {
+            NIX_CONFIG = "extra-experimental-features = nix-command flakes ca-derivations";
             buildInputs = with pkgs; [
               git
 
               lua
-
-              nixfmt-rfc-style
             ];
           };
         }

@@ -82,7 +82,7 @@ in
           bind -n M-l next-window
 
           # Run tmux-sessionizer (don't know why it does not work as expected)
-          bind-key -r f run-shell "${pkgs.tmux}/bin/tmux neww ${tmux-sessionizer}/bin/tmux-sessionizer"
+          bind-key -r f run-shell "tmux neww ${tmux-sessionizer}/bin/tmux-sessionizer"
 
           # Copy mode
           bind-key -T copy-mode-vi v send-keys -X begin-selection

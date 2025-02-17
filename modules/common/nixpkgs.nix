@@ -23,10 +23,11 @@
       };
 
       settings = {
-        auto-optimise-store = lib.mkIf (!pkgs.stdenv.isDarwin) true;
+        auto-optimise-store = true;
         experimental-features = [
           "nix-command"
           "flakes"
+          "ca-derivations"
         ];
 
         allowed-users = [

@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -14,34 +15,26 @@
       default = false;
     };
 
-    spicetify = {
-      enable = lib.mkEnableOption {
-        description = "Enable Spicetify";
-        default = false;
-      };
-
-      input = lib.mkOption {
-        description = "Spicetify input";
-        type = lib.types.anything; # TODO: find type
-      };
-
-      # TODO: add options for extensions, themes, etc
-      # for now it will be hard coded here
-    };
+    # spicetify = {
+    #   enable = lib.mkEnableOption {
+    #     description = "Enable Spicetify";
+    #     default = false;
+    #   };
+    #
+    #   # TODO: add options for extensions, themes, etc
+    #   # for now it will be hard coded here
+    # };
   };
 
   config = lib.mkIf config.spotify.enable {
     home-manager.users.${config.user} = {
-      imports = [ config.spotify.spicetify.input.homeManagerModules.default ];
+      # NOTE: For now spicetify is default for spotify
 
-      # I think this is not needed
-      # home.packages = with pkgs; [
-      #   spotify
-      # ];
+      imports = [ inputs.spicetify-nix.homeManagerModules.default ];
 
       programs.spicetify =
         let
-          spicePkgs = config.spotify.spicetify.input.legacyPackages.${pkgs.system};
+          spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
         in
         {
           enable = true;

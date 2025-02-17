@@ -1,7 +1,6 @@
 {
   config,
   lib,
-  pkgs,
   ...
 }:
 
@@ -13,19 +12,10 @@
 
   config = lib.mkIf config.neovim.enable {
     home-manager.users.${config.user} =
-      { config, ... }:
-      let
+      { config, ... }: let
         inherit (config.lib.file) mkOutOfStoreSymlink;
-      in
-      {
-        home.packages = with pkgs; [
-          neovim
-
-          fd # (better find) (used in neovim?)
-          nodejs_22 # for copilot (maybe add an overlay)
-          jq # Think lsp's use it (test later)
-          tree-sitter # executable for nvim-treesitter
-        ];
+      in {
+        programs.neovim.enable = true;
 
         programs.git.extraConfig.core.editor = "nvim";
 
