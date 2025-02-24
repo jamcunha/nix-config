@@ -95,7 +95,7 @@ lib.nixosSystem {
         wm.bspwm = true;
       };
 
-      sound.enable = true;
+      sound-cfg.enable = true;
       nix-ld.enable = true;
 
       docker.enable = true;

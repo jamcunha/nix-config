@@ -8,7 +8,7 @@
   ];
 
   options = {
-    sound.enable = lib.mkEnableOption {
+    sound-cfg.enable = lib.mkEnableOption {
       description = "Enable sound support";
       default = false;
     };

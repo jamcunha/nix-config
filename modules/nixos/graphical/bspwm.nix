@@ -115,7 +115,7 @@ in
             "super + ctrl + {h,j,k,l}" = "bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}";
             "super + {Left, Right}" = "bspc monitor -f {prev,next}";
           }
-          // lib.optionalAttrs config.sound.enable {
+          // lib.optionalAttrs config.sound-cfg.enable {
             "XF86AudioRaiseVolume" = "pamixer -i 1";
             "XF86AudioLowerVolume" = "pamixer -d 1";
             "XF86AudioMute" = "pamixer -t";
