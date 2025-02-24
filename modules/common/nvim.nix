@@ -21,7 +21,7 @@
 
         home.sessionVariables.EDITOR = "nvim";
 
-        xdg.configFile.nvim.source = mkOutOfStoreSymlink "${config.home.homeDirectory}/nixos/nvim";
+        xdg.configFile.nvim.source = mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/nvim";
       };
   };
 }
