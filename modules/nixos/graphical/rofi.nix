@@ -208,7 +208,7 @@ let
         elif [[ $1 == '--reboot' ]]; then
           systemctl reboot
         elif [[ $1 == '--suspend' ]]; then
-          ${pkgs.pamixer}/bin/pamixer --mute
+          pamixer --mute
           systemctl suspend
         elif [[ $1 == '--logout' ]]; then
           # For now only bspwm is supported. Maybe add a global logoutCmd set in wm .nix?

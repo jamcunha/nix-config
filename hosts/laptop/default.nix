@@ -21,29 +21,8 @@ lib.nixosSystem {
     inputs.hardware.nixosModules.common-pc-ssd
     inputs.hardware.nixosModules.common-gpu-nvidia
 
-    # GPU Settings
-    # {
-    #   imports = [
-    #       inputs.hardware.nixosModules.common-gpu-nvidia
-    #   ];
-    #
-    #   hardware.nvidia = {
-    #     open = false;
-    #
-    #     # test
-    #     package = config.boot.kernelPackages.nvidiaPackages.production;
-    #
-    #     prime = {
-    #       intelBusId = "PCI:0:2:0";
-    #       nvidiaBusId = "PCI:2:0:0";
-    #     };
-    #   };
-    # }
-
     ../../modules/common
     ../../modules/nixos
-
-    ../../modules/nixos/hardware/nvidia.nix
 
     {
       networking.networkmanager.enable = true;
@@ -67,11 +46,15 @@ lib.nixosSystem {
       };
 
       hardware.enableRedistributableFirmware = true;
-      hardware.cpu.intel.updateMicrocode = true;
+
+      hardware.nvidia.prime = {
+        intelBusId = "PCI:0:2:0";
+        nvidiaBusId = "PCI:2:0:0";
+      };
 
       powerManagement = {
-          enable = true;
-          cpuFreqGovernor = "ondemand";
+        enable = true;
+        cpuFreqGovernor = "ondemand";
       };
 
       userGroups = [
@@ -79,19 +62,16 @@ lib.nixosSystem {
         "video"
       ];
 
+      environment.systemPackages = let
+        pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+      in [
+        pkgs.mcontrolcenter # MSI Control Center
+      ];
+
+      # monitor backlight
+      programs.light.enable = true;
+
       # ---- Sort this -----------------------
-
-      environment.systemPackages =
-        let
-          pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
-        in
-        with pkgs;
-        [
-          # TODO: add to a keybind
-          brightnessctl
-
-          mcontrolcenter # MSI Control Center
-        ];
 
       # not for steam but for useful options
       programs.steam.enable = true;
@@ -115,10 +95,9 @@ lib.nixosSystem {
         wm.bspwm = true;
       };
 
-      soundCfg.enable = true;
+      sound.enable = true;
       nix-ld.enable = true;
 
-      virt-manager.enable = true;
       docker.enable = true;
 
       # Programs and services
@@ -128,7 +107,6 @@ lib.nixosSystem {
       neovim.enable = true;
       tmux.enable = true;
       spotify.enable = true;
-
       kanata.enable = true;
 
       # temp

@@ -6,15 +6,15 @@
 }:
 let
   bspwm-change-workspace = pkgs.writeShellScriptBin "bspwm-change-workspace" ''
-    monitor=$(${pkgs.bspwm}/bin/bspc query -M -m focused --names)
+    monitor=$(bspc query -M -m focused --names)
 
-    ${pkgs.bspwm}/bin/bspc desktop $monitor:^$1 -f
+    bspc desktop $monitor:^$1 -f
   '';
 
   bspwm-move-workspace = pkgs.writeShellScriptBin "bspwm-move-workspace" ''
-    monitor=$(${pkgs.bspwm}/bin/bspc query -M -m focused --names)
+    monitor=$(bspc query -M -m focused --names)
 
-    ${pkgs.bspwm}/bin/bspc node -d $monitor:^$1
+    bspc node -d $monitor:^$1
   '';
 
   bspwm-scratchterm = pkgs.writeShellScriptBin "bspwm-scratchterm" ''
@@ -51,30 +51,8 @@ in
 
         # find a way to make monitors dynamic
         monitors = {
-          eDP-1 = [
-            "1"
-            "2"
-            "3"
-            "4"
-            "5"
-            "6"
-            "7"
-            "8"
-            "9"
-            "10"
-          ];
-          HDMI-2 = [
-            "1"
-            "2"
-            "3"
-            "4"
-            "5"
-            "6"
-            "7"
-            "8"
-            "9"
-            "10"
-          ];
+          eDP-1 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
+          HDMI-2 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
 
           # when nvidia is enabled (laptop specific, still need to find a better way)
           # eDP-1-1 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
@@ -109,10 +87,7 @@ in
           focused_border_color = "#7aa2f7";
         };
 
-        extraConfig = ''
-          nitrogen --restore &
-          systemctl --user start polybar
-        '';
+        extraConfig = "nitrogen --restore &";
       };
 
       services.sxhkd = {
@@ -123,33 +98,33 @@ in
             "super + p" = config.gui.launcherCmd;
             "super + {b,shift + b}" = "{${pkgs.firefox}/bin/firefox, ${pkgs.firefox}/bin/firefox --private-window}";
             "super + f" = "${pkgs.xfce.thunar}/bin/thunar";
-            "super + shift + s" = "${pkgs.scrot}/bin/scrot -s -f -z -e '${pkgs.xclip}/bin/xclip -selection clipboard -t image/png -i $f && rm $f'";
+            "super + shift + s" = "${pkgs.scrot}/bin/scrot -s -f -z -e 'xclip -selection clipboard -t image/png -i $f && rm $f'";
             "super + shift + Return" = "${bspwm-scratchterm}/bin/bspwm-scratchterm";
 
-            "super + shift + r" = "${pkgs.bspwm}/bin/bspc wm -r";
+            "super + shift + r" = "bspc wm -r";
 
             "super + shift + q" = config.gui.powermenuCmd;
-            "super + shift + c" = "${pkgs.bspwm}/bin/bspc node -c";
-            "super + y" = "${pkgs.bspwm}/bin/bspc node -s biggest.window";
-            "super + {t,shift + t}" = "${pkgs.bspwm}/bin/bspc node -t {tiled,pseudo_tiled}";
-            "super + shift + @space" = "${pkgs.bspwm}/bin/bspc node -t floating";
-            "super + shift + f" = "${pkgs.bspwm}/bin/bspc node -t fullscreen";
-            "super + {_,shift + }{h,j,k,l}" = "${pkgs.bspwm}/bin/bspc node -{f,s} {west,south,north,east}";
+            "super + shift + c" = "bspc node -c";
+            "super + y" = "bspc node -s biggest.window";
+            "super + {t,shift + t}" = "bspc node -t {tiled,pseudo_tiled}";
+            "super + shift + @space" = "bspc node -t floating";
+            "super + shift + f" = "bspc node -t fullscreen";
+            "super + {_,shift + }{h,j,k,l}" = "bspc node -{f,s} {west,south,north,east}";
             "super + {1-9,0}" = "${bspwm-change-workspace}/bin/bspwm-change-workspace {1-9,10}";
             "super + shift + {1-9,0}" = "${bspwm-move-workspace}/bin/bspwm-move-workspace {1-9,10}";
-            "super + ctrl + {h,j,k,l}" = "${pkgs.bspwm}/bin/bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}";
-            "super + {Left, Right}" = "${pkgs.bspwm}/bin/bspc monitor -f {prev,next}";
+            "super + ctrl + {h,j,k,l}" = "bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}";
+            "super + {Left, Right}" = "bspc monitor -f {prev,next}";
           }
-          // lib.optionalAttrs config.soundCfg.enable {
-            "XF86AudioRaiseVolume" = config.soundCfg.volumeUp;
-            "XF86AudioLowerVolume" = config.soundCfg.volumeDown;
-            "XF86AudioMute" = config.soundCfg.volumeToggle;
+          // lib.optionalAttrs config.sound.enable {
+            "XF86AudioRaiseVolume" = "pamixer -i 1";
+            "XF86AudioLowerVolume" = "pamixer -d 1";
+            "XF86AudioMute" = "pamixer -t";
 
-            "XF86AudioPlay" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox play-pause";
-            "XF86AudioNext" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox next";
-            "XF86AudioPrev" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox previous";
-            "XF86AudioStop" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox stop";
-            "super + m; {N,n,p}" = "${pkgs.playerctl}/bin/playerctl --player=%any,firefox {previous,next,play-pause}";
+            "XF86AudioPlay" = "playerctl --player=%any,firefox play-pause";
+            "XF86AudioNext" = "playerctl --player=%any,firefox next";
+            "XF86AudioPrev" = "playerctl --player=%any,firefox previous";
+            "XF86AudioStop" = "playerctl --player=%any,firefox stop";
+            "super + m; {N,n,p}" = "playerctl --player=%any,firefox {previous,next,play-pause}";
           };
       };
     };

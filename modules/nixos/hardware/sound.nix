@@ -6,7 +6,7 @@
 }:
 
 {
-  config = lib.mkIf (config.gui.enable && config.soundCfg.enable && pkgs.stdenv.isLinux) {
+  config = lib.mkIf (config.gui.enable && config.sound.enable && pkgs.stdenv.isLinux) {
     security.rtkit.enable = true;
     hardware.pulseaudio.enable = false;
 
@@ -21,8 +21,6 @@
       jack.enable = true;
     };
 
-    soundCfg.volumeUp = "${pkgs.pamixer}/bin/pamixer -i 1";
-    soundCfg.volumeDown = "${pkgs.pamixer}/bin/pamixer -d 1";
-    soundCfg.volumeToggle = "${pkgs.pamixer}/bin/pamixer -t";
+    environment.systemPackages = with pkgs; [ pamixer playerctl ];
   };
 }
