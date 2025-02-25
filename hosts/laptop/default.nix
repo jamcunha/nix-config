@@ -13,8 +13,6 @@
     inputs.hardware.nixosModules.common-pc-ssd
 
     ./hardware-configuration.nix
-
-    ../../modules/nixos
   ];
 
   networking = {

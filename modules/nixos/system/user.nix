@@ -1,4 +1,4 @@
-{ config, pkgs, ... }: let
+{ outputs, config, pkgs, ... }: let
   ifGroupExists = groups: builtins.filter (group: builtins.hasAttr group config.users.groups) groups;
 in
 {
@@ -24,6 +24,11 @@ in
       };
     };
 
-    home-manager.users."afonso" = import ../../../hosts/${config.networking.hostName}/home.nix;
+    home-manager.users."afonso" = { ... }: {
+      imports = [
+        ../../../hosts/${config.networking.hostName}/home.nix
+        outputs.homeManagerModules
+      ];
+    };
   };
 }

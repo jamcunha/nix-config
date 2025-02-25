@@ -50,19 +50,26 @@
             pkgs = import nixpkgs { inherit system; };
           }
         );
+
+      pkgs = nixpkgs.legacyPackages."x86_64-linux";
     in {
       inherit lib;
 
+      nixosModules = import ./modules/nixos;
+      homeManagerModules = import ./modules/home-manager;
+
       nixosConfigurations = {
         laptop = lib.nixosSystem {
-          modules = [ ./hosts/laptop ];
+          modules = [ ./hosts/laptop outputs.nixosModules ];
           specialArgs = { inherit inputs outputs; };
         };
       };
 
       homeConfigurations = {
         "afonso@laptop" = lib.homeManagerConfiguration {
-          modules = [ ./hosts/laptop/home.nix ];
+          # FIX: some problem with home-manager config
+          inherit pkgs;
+          modules = [ ./hosts/laptop/home.nix outputs.homeManagerModules ];
           extraSpecialArgs = { inherit inputs outputs; };
         };
       };

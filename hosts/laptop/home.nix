@@ -1,3 +1,2 @@
 { ... }: {
-  imports = [ ../../modules/home-manager ];
 }
