@@ -112,7 +112,7 @@ lib.nixosSystem {
       programming-languages.enable = true;
 
       # temp
-      starship.enable = true;
+      # starship.enable = true;
     }
   ];
 }

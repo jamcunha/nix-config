@@ -24,7 +24,7 @@
         # for now leave oh-my-zsh, later replace for custom config
         oh-my-zsh = {
           enable = true;
-          # theme = "robbyrussell";
+          theme = "robbyrussell";
           plugins = [ "git" ];
         };
 
