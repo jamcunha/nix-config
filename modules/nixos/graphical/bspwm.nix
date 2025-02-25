@@ -87,7 +87,10 @@ in
           focused_border_color = "#7aa2f7";
         };
 
-        extraConfig = "nitrogen --restore &";
+        extraConfig = ''
+          nitrogen --restore &
+          systemctl --user start polybar &
+        '';
       };
 
       services.sxhkd = {
