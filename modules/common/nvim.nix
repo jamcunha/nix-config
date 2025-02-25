@@ -1,6 +1,7 @@
 {
   config,
   lib,
+  pkgs,
   ...
 }:
 
@@ -20,6 +21,7 @@
         programs.git.extraConfig.core.editor = "nvim";
 
         home.sessionVariables.EDITOR = "nvim";
+        home.packages = [ pkgs.tree-sitter ];
 
         xdg.configFile.nvim.source = mkOutOfStoreSymlink "${config.home.homeDirectory}/nix-config/nvim";
       };

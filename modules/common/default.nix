@@ -19,6 +19,8 @@
     ./zsh.nix
     ./kdeconnect.nix
 
+    ./programming-languages
+
     # temporary
     ./starship.nix
   ];

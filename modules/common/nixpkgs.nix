@@ -1,4 +1,5 @@
 {
+  inputs,
   config,
   lib,
   pkgs,
@@ -15,7 +16,7 @@
     };
 
     nix = {
-      nixPath = [ "nixpkgs=${pkgs.path}" ];
+      nixPath = [ "nixpkgs=${inputs.nixpkgs}" ];
 
       registry.nixpkgs.to = {
         type = "path";

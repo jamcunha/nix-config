@@ -109,6 +109,8 @@ lib.nixosSystem {
       spotify.enable = true;
       kanata.enable = true;
 
+      programming-languages.enable = true;
+
       # temp
       starship.enable = true;
     }
