@@ -8,7 +8,7 @@
 {
   config = lib.mkIf (config.gui.enable && config.sound-cfg.enable && pkgs.stdenv.isLinux) {
     security.rtkit.enable = true;
-    hardware.pulseaudio.enable = false;
+    services.pulseaudio.enable = false;
 
     services.pipewire = {
       enable = true;
