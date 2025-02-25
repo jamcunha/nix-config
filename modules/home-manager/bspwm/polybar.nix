@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ config, pkgs, ... }:
 {
   services.polybar = {
     enable = true;
@@ -43,8 +43,7 @@
 
         modules-left = "workspaces";
         # modules-center = "";
-        # modules-right = "network battery pulseaudio date powermenu";
-        modules-right = "network battery pulseaudio date";
+        modules-right = "network battery pulseaudio date powermenu";
 
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
@@ -212,8 +211,7 @@
         content-background = "#f7768e";
         content-padding = 1;
 
-        # FIX:
-        # click-left = "${config.gui.powermenuCmd} &";
+        click-left = "${config.powermenu-cmd} &";
       };
 
       "module/network" = {

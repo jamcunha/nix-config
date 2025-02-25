@@ -145,7 +145,98 @@
       text-color:         #15161e;
     }
   '';
+
+  rofi = config.programs.rofi.finalPackage;
+
+  powermenuScript = pkgs.writeShellScriptBin "rofi-powermenu" ''
+    # CMDs
+    uptime="`${pkgs.procps}/bin/uptime -p | sed -e 's/up //g'`"
+    host=`hostname`
+
+    # Options
+    shutdown=''
+    reboot=''
+    logout=''
+    suspend=''
+    lock=''
+    yes=''
+    no=''
+
+    # Rofi CMD
+    rofi_cmd() {
+      ${rofi}/bin/rofi -dmenu \
+        -p "Uptime: $uptime" \
+        -mesg "Uptime: $uptime" \
+        -theme $HOME/.config/rofi/powermenu.rasi
+    }
+
+    # Confirmation CMD
+    confirm_cmd() {
+      ${rofi}/bin/rofi -theme-str 'window {location: center; anchor: center; fullscreen: false; width: 350px;}' \
+        -theme-str 'mainbox {children: [ "message", "listview" ];}' \
+        -theme-str 'listview {columns: 2; lines: 1;}' \
+        -theme-str 'element-text {horizontal-align: 0.5;}' \
+        -theme-str 'textbox {horizontal-align: 0.5;}' \
+        -dmenu \
+        -p 'Confirmation' \
+        -mesg 'Are you Sure?' \
+        -theme $HOME/.config/rofi/powermenu.rasi
+    }
+
+    # Ask for confirmation
+    confirm_exit() {
+      echo -e "$yes\n$no" | confirm_cmd
+    }
+
+    # Pass variables to rofi dmenu
+    run_rofi() {
+      echo -e "$lock\n$suspend\n$logout\n$reboot\n$shutdown" | rofi_cmd
+    }
+
+    # Execute Command
+    run_cmd() {
+      selected="$(confirm_exit)"
+      if [[ "$selected" == "$yes" ]]; then
+        if [[ $1 == '--shutdown' ]]; then
+          systemctl poweroff
+        elif [[ $1 == '--reboot' ]]; then
+          systemctl reboot
+        elif [[ $1 == '--suspend' ]]; then
+          ${pkgs.pamixer}/bin/pamixer --mute
+          systemctl suspend
+        elif [[ $1 == '--logout' ]]; then
+          # For now only bspwm is supported. Maybe add a global logoutCmd set in wm .nix?
+          bspc quit
+        fi
+      else
+        exit 0
+      fi
+    }
+
+    # Actions
+    chosen="$(run_rofi)"
+    case $chosen in
+      $shutdown)
+        run_cmd --shutdown
+        ;;
+      $reboot)
+        run_cmd --reboot
+        ;;
+      $lock)
+        # lock not in use but the option is there if wanted
+        ;;
+      $suspend)
+        run_cmd --suspend
+        ;;
+      $logout)
+        run_cmd --logout
+        ;;
+    esac
+  '';
 in {
+  powermenu-cmd = "${powermenuScript}/bin/rofi-powermenu";
+  launcher-cmd = "${rofi}/bin/rofi -show drun";
+
   home.packages = with pkgs; [
     jq
   ];
