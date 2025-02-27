@@ -1,5 +1,4 @@
-{ lib, ... }:
-{
+{lib, ...}: {
   options.programming-languages.enable = lib.mkEnableOption {
     default = false;
     description = "Installs programming languages and the respective tools";
