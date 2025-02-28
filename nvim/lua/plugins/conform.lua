@@ -1,40 +1,43 @@
--- Autoformat
-
 return {
-  "stevearc/conform.nvim",
-  event = { "BufWritePre" },
-  cmd = { "ConformInfo" },
+  'stevearc/conform.nvim',
+  event = { 'BufWritePre' },
+  cmd = { 'ConformInfo' },
+
+  -- stylua: ignore
   keys = {
-    {
-      "<leader>f",
-      function()
-        require("conform").format({ async = true })
-      end,
-      mode = "",
-      desc = "[F]ormat buffer",
-    },
+    { '<leader>f', function() require('conform').format { async = false } end, },
   },
+
   opts = {
     notify_on_error = false,
     format_on_save = function(bufnr)
-      -- TODO: maybe add a list of filetypes to format on save instead of ignoring
-      local ignore_filetypes = { "python" }
+      local ignore_filetypes = { 'python' } -- formatting python is slow
       if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
         return nil
       end
 
       return {
         timeout_ms = 500,
-        lsp_format = "fallback",
+        async = false,
+        quite = false,
+        lsp_format = 'fallback',
       }
     end,
     formatters_by_ft = {
-      lua = { "stylua" },
-      go = { "goimports_reviser", "gofumpt", "golines" },
-      python = { "isort", "black" },
-      c = { "clang-format" },
-      cpp = { "clang-format" },
-      -- javascript = { "prettierd", "prettier", stop_after_first = true },
+      lua = { 'stylua' },
+      go = { 'goimports_reviser', 'gofumpt', 'golines' },
+      python = { 'isort', 'black' },
+      c = { 'clang-format' },
+      cpp = { 'clang-format' },
+      nix = { 'alejandra' },
+
+      javascript = { 'prettierd' },
+      typescript = { 'prettierd' },
+      javascriptreact = { 'prettierd' },
+      typescriptreact = { 'prettierd' },
+      svelte = { 'prettierd' },
+      css = { 'prettierd' },
+      html = { 'prettierd' },
     },
   },
 }
