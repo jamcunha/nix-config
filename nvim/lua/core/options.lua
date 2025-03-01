@@ -1,7 +1,7 @@
 vim.opt.number = true
 vim.opt.relativenumber = true
 
-vim.opt.tabstop = 4 -- spaces for tabs
+vim.opt.tabstop = 2 -- spaces for tabs
 vim.opt.shiftwidth = 0 -- spaces for indent (0 -> follow tabstop)
 vim.opt.expandtab = true
 vim.opt.smarttab = true
