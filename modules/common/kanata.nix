@@ -2,8 +2,7 @@
   config,
   lib,
   ...
-}:
-{
+}: {
   # TODO: add an option to add devices
   options.kanata.enable = lib.mkEnableOption {
     description = "Enable Kanata";
@@ -12,7 +11,7 @@
 
   config = lib.mkIf (config.gui.enable && config.kanata.enable) {
     users.groups.uinput = {
-      members = [ "${config.user}" ];
+      members = ["${config.user}"];
     };
 
     userGroups = [
@@ -28,7 +27,7 @@
       enable = true;
       keyboards = {
         internal = {
-          devices = [ "/dev/input/by-path/platform-i8042-serio-0-event-kbd" ];
+          devices = ["/dev/input/by-path/platform-i8042-serio-0-event-kbd"];
           extraDefCfg = "process-unmapped-keys yes";
           config = ''
             (defsrc
@@ -37,7 +36,7 @@
 
             (defvar
               tap-time 150
-              hold-time 150
+              hold-time 200
             )
 
             (defalias
