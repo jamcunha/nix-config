@@ -42,6 +42,43 @@ M.extra_opts = {
       },
     },
   },
+
+  on_attach = function(_, bufnr)
+    local map = function(keys, func)
+      vim.keymap.set('n', keys, func, { buffer = bufnr, noremap = true, silent = true })
+    end
+
+    map('gR', function()
+      require('trouble').open {
+        mode = 'lsp_command',
+        params = {
+          command = 'typescript.goToSourceDefinition',
+          arguments = { vim.uri_from_bufnr(0) },
+        },
+      }
+    end)
+
+    map('<leader>co', function()
+      vim.lsp.buf.code_action {
+        apply = true,
+        context = { only = { 'source.organizeImports' }, diagnostics = {} },
+      }
+    end)
+
+    map('<leader>cM', function()
+      vim.lsp.buf.code_action {
+        apply = true,
+        context = { only = { 'source.addMissingImports.ts' }, diagnostics = {} },
+      }
+    end)
+
+    map('<leader>cu', function()
+      vim.lsp.buf.code_action {
+        apply = true,
+        context = { only = { 'source.removeUnused.ts' }, diagnostics = {} },
+      }
+    end)
+  end,
 }
 
 return M

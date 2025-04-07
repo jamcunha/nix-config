@@ -314,6 +314,7 @@ M.colors = {
     [950] = '4c0519',
   },
 }
+
 return {
   'echasnovski/mini.nvim',
   version = '*',

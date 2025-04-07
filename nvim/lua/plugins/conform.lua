@@ -5,7 +5,8 @@ return {
 
   -- stylua: ignore
   keys = {
-    { '<leader>f', function() require('conform').format { async = false } end, },
+    { '<leader>f', function() require('conform').format { async = true } end },
+    { '<leader>tf', function () vim.g.disable_autoformat = not vim.g.disable_autoformat end },
   },
 
   opts = {
@@ -13,16 +14,20 @@ return {
     format_on_save = function(bufnr)
       local ignore_filetypes = { 'python' } -- formatting python is slow
       if vim.tbl_contains(ignore_filetypes, vim.bo[bufnr].filetype) then
-        return nil
+        return
+      end
+
+      -- toggle auto format
+      if vim.g.disable_autoformat then
+        return
       end
 
       return {
         timeout_ms = 500,
-        async = false,
-        quite = false,
         lsp_format = 'fallback',
       }
     end,
+
     formatters_by_ft = {
       lua = { 'stylua' },
       go = { 'goimports_reviser', 'gofumpt', 'golines' },
