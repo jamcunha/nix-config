@@ -4,11 +4,10 @@
   lib,
   ...
 }:
-
 lib.nixosSystem {
   system = "x86_64-linux";
 
-  specialArgs = { inherit inputs; };
+  specialArgs = {inherit inputs;};
 
   modules = [
     globals
@@ -38,18 +37,22 @@ lib.nixosSystem {
             "usbhid"
             "sd_mod"
           ];
-          kernelModules = [ ];
+          kernelModules = [];
         };
 
-        kernelModules = [ "kvm-intel" ];
-        extraModulePackages = [ ];
+        kernelModules = ["kvm-intel"];
+        extraModulePackages = [];
       };
 
       hardware.enableRedistributableFirmware = true;
 
-      hardware.nvidia.prime = {
-        intelBusId = "PCI:0:2:0";
-        nvidiaBusId = "PCI:2:0:0";
+      hardware.nvidia = {
+        open = false;
+
+        prime = {
+          intelBusId = "PCI:0:2:0";
+          nvidiaBusId = "PCI:2:0:0";
+        };
       };
 
       powerManagement = {
@@ -63,7 +66,7 @@ lib.nixosSystem {
       ];
 
       environment.systemPackages = let
-        pkgs = import inputs.nixpkgs { system = "x86_64-linux"; };
+        pkgs = import inputs.nixpkgs {system = "x86_64-linux";};
       in [
         pkgs.mcontrolcenter # MSI Control Center
       ];
@@ -81,8 +84,7 @@ lib.nixosSystem {
 
       specialisation = {
         no-dgpu.configuration = {
-          imports = [ inputs.hardware.nixosModules.common-gpu-nvidia-disable ];
-
+          imports = [inputs.hardware.nixosModules.common-gpu-nvidia-disable];
 
           # temp fix for temperature (?? have profiles for cpuFreqGovernor)
           powerManagement.cpuFreqGovernor = lib.mkForce "powersave";
