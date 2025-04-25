@@ -3,6 +3,8 @@ return {
   event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     { 'j-hui/fidget.nvim', opts = {} },
+    -- TODO: config manually using nvim-jdtls instead of relying on third-party config
+    { 'nvim-java/nvim-java', config = false },
   },
 
   opts = {
@@ -120,6 +122,9 @@ return {
 
       'vtsls',
       'tailwindcss',
+
+      -- TODO: config manually using nvim-jdtls instead of relying on third-party config
+      'jdtls',
     }
 
     for _, server in ipairs(servers) do

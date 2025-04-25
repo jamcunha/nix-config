@@ -5,9 +5,7 @@
   pkgs,
   ...
 }:
-
 # NOTE: This is completely shit code, pls refactor later (and find a way to get spicetify-nix to here)
-
 {
   options.spotify = {
     enable = lib.mkEnableOption {
@@ -30,28 +28,23 @@
     home-manager.users.${config.user} = {
       # NOTE: For now spicetify is default for spotify
 
-      imports = [ inputs.spicetify-nix.homeManagerModules.default ];
+      imports = [inputs.spicetify-nix.homeManagerModules.default];
 
-      programs.spicetify =
-        let
-          spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
-        in
-        {
-          enable = true;
+      programs.spicetify = let
+        spicePkgs = inputs.spicetify-nix.legacyPackages.${pkgs.system};
+      in {
+        enable = true;
 
-          enabledExtensions = with spicePkgs.extensions; [
-            adblock
+        enabledExtensions = with spicePkgs.extensions; [
+          adblock
 
-            shuffle
-            # beautifulLyrics
-          ];
+          shuffle
+        ];
 
-          enabledCustomApps = with spicePkgs.apps; [
-            lyricsPlus
-          ];
-
-          theme = spicePkgs.themes.spotifyNoPremium;
-        };
+        enabledCustomApps = with spicePkgs.apps; [
+          lyricsPlus
+        ];
+      };
     };
   };
 }

@@ -2,9 +2,7 @@
   config,
   pkgs,
   ...
-}:
-
-{
+}: {
   config = {
     users.users.${config.user}.shell = pkgs.zsh;
     programs.zsh.enable = true;
@@ -25,7 +23,7 @@
         oh-my-zsh = {
           enable = true;
           theme = "robbyrussell";
-          plugins = [ "git" ];
+          plugins = ["git"];
         };
 
         plugins = [
@@ -43,7 +41,7 @@
         ];
 
         # Start ssh-agent and add needed ssh keys
-        initExtra = ''
+        initContent = ''
           if ! pgrep -u $USER ssh-agent > /dev/null 2>&1; then
             eval $(ssh-agent -s) > /dev/null 2>&1
 
