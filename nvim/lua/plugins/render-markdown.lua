@@ -12,8 +12,5 @@ return {
       sign = false,
       icons = {},
     },
-    checkbox = {
-      custom = {},
-    },
   },
 }

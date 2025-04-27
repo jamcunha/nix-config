@@ -12,5 +12,6 @@
     ./nix.nix
     ./typescript.nix
     ./tailwind.nix
+    ./markdown.nix
   ];
 }

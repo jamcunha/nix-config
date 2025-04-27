@@ -119,6 +119,7 @@ return {
       'gopls',
       'clangd',
       'basedpyright',
+      'marksman',
 
       'vtsls',
       'tailwindcss',
