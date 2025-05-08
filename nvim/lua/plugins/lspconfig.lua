@@ -3,8 +3,6 @@ return {
   event = { 'BufReadPre', 'BufNewFile' },
   dependencies = {
     { 'j-hui/fidget.nvim', opts = {} },
-    -- TODO: config manually using nvim-jdtls instead of relying on third-party config
-    { 'nvim-java/nvim-java', config = false },
   },
 
   opts = {
@@ -124,24 +122,25 @@ return {
       'vtsls',
       'tailwindcss',
 
-      -- TODO: config manually using nvim-jdtls instead of relying on third-party config
       'jdtls',
     }
 
     for _, server in ipairs(servers) do
-      local server_opts = {
-        capabilities = capabilities,
-      }
+      if server ~= 'jdtls' then
+        local server_opts = {
+          capabilities = capabilities,
+        }
 
-      local ok, settings = pcall(require, 'lspconfig.' .. server)
-      if ok then
-        if settings.extra_setup ~= nil then
-          settings.extra_setup()
+        local ok, settings = pcall(require, 'lspconfig.' .. server)
+        if ok then
+          if settings.extra_setup ~= nil then
+            settings.extra_setup()
+          end
+          server_opts = vim.tbl_deep_extend('force', settings.extra_opts, server_opts)
         end
-        server_opts = vim.tbl_deep_extend('force', settings.extra_opts, server_opts)
-      end
 
-      lspconfig[server].setup(server_opts)
+        lspconfig[server].setup(server_opts)
+      end
     end
   end,
 }
