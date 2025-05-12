@@ -21,61 +21,55 @@
     };
   };
 
-  outputs =
-    {
-      self,
-      nixpkgs,
-      hardware,
-      disko,
-      home-manager,
-      spicetify-nix,
-      ...
-    }@inputs:
-    let
-      globals = {
-        user = "afonso";
-        fullName = "Joaquim Cunha";
-        gitName = "Joaquim Cunha";
-        gitEmail = "joaquimafonsocunha@gmail.com";
-      };
+  outputs = {
+    nixpkgs,
+    home-manager,
+    ...
+  } @ inputs: let
+    supportedSystems = [
+      "x86_64-linux"
+      "aarch64-linux"
+    ];
 
-      supportedSystems = [
-        "x86_64-linux"
-        "aarch64-linux"
-      ];
-
-      forEachSupportedSystem =
-        f:
-        nixpkgs.lib.genAttrs supportedSystems (
-          system:
+    forEachSupportedSystem = f:
+      nixpkgs.lib.genAttrs supportedSystems (
+        system:
           f {
-            pkgs = import nixpkgs { inherit system; };
+            pkgs = import nixpkgs {inherit system;};
           }
-        );
-    in
-    rec {
-      nixosConfigurations = {
-        laptop = import ./hosts/laptop {
-          inherit inputs globals;
-          lib = inputs.nixpkgs.lib;
+      );
+  in {
+    nixosConfigurations = {
+      laptop = nixpkgs.lib.nixosSystem {
+        system = "x86_64-linux";
+        modules = [./hosts/laptop/configuration.nix];
+        specialArgs = {
+          inherit inputs;
         };
       };
-
-      homeConfigurations = {
-        laptop = nixosConfigurations.laptop.config.home-manager.users.${globals.user}.home;
-      };
-
-      devShells = forEachSupportedSystem (
-        { pkgs }: {
-          default = pkgs.mkShell {
-            NIX_CONFIG = "extra-experimental-features = nix-command flakes ca-derivations";
-            buildInputs = with pkgs; [
-              git
-
-              lua
-            ];
-          };
-        }
-      );
     };
+
+    homeConfigurations = {
+      laptop = home-manager.lib.homeManagerConfiguration {
+        pkgs = nixpkgs.legacyPackages."x86_64-linux";
+        modules = [./hosts/laptop/home.nix];
+        extraSpecialArgs = {
+          inherit inputs;
+        };
+      };
+    };
+
+    devShells = forEachSupportedSystem (
+      {pkgs}: {
+        default = pkgs.mkShell {
+          NIX_CONFIG = "extra-experimental-features = nix-command flakes ca-derivations";
+          buildInputs = with pkgs; [
+            git
+
+            lua
+          ];
+        };
+      }
+    );
+  };
 }
