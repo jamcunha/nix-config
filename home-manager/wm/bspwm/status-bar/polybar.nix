@@ -48,7 +48,7 @@
 
         modules-left = "workspaces";
         # modules-center = "";
-        modules-right = "network battery pulseaudio date powermenu";
+        modules-right = "network battery pulseaudio date";
 
         cursor-click = "pointer";
         cursor-scroll = "ns-resize";
@@ -205,18 +205,6 @@
         label-low-padding = 1;
 
         format-low = "<label-low>";
-      };
-
-      "module/powermenu" = {
-        type = "custom/text";
-
-        content = "";
-        content-font = 2;
-        content-foreground = "#cfc9c2";
-        content-background = "#f7768e";
-        content-padding = 1;
-
-        # click-left = "${config.gui.powermenuCmd} &";
       };
 
       "module/network" = {
