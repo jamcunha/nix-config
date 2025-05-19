@@ -89,7 +89,7 @@ in {
     };
 
     extraConfig = ''
-      feh --bg-fill $HOME/.wallpaper/image.png &
+      feh --bg-fill /home/afonso/.wallpaper/image.png &
       systemctl --user start polybar &
     '';
   };
@@ -99,7 +99,7 @@ in {
     keybindings = {
       "super + Return" = "alacritty";
       "super + p" = "rofi -show drun";
-      "super + {b,shift + b}" = "firefox, firefox --private-window}";
+      "super + {b,shift + b}" = "{firefox, firefox --private-window}";
       "super + f" = "thunar";
       "super + shift + s" = "scrot -s -f -z -e 'xclip -selection clipboard -t image/png -i $f && rm $f'";
       "super + shift + Return" = "${bspwm-scratchterm}/bin/bspwm-scratchterm";
