@@ -1,7 +1,6 @@
 {
   config,
   pkgs,
-  lib,
   ...
 }: let
   cfg = config.mySettings;
@@ -157,8 +156,8 @@
 
   powermenuScript = pkgs.writeShellScriptBin "rofi-powermenu" ''
     # CMDs
-    uptime="uptime -p | sed -e 's/up //g'"
-    host="`${cfg.hostname}`"
+    uptime=`${pkgs.procps}/bin/uptime -p | sed -e 's/up //g'`
+    host=${cfg.hostname}
 
     # Options
     shutdown=''
