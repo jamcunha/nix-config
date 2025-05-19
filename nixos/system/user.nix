@@ -14,5 +14,9 @@ in {
     extraGroups = ["wheel" "networkmanager" "video"];
 
     packages = [pkgs.home-manager];
+
+    shell = pkgs.zsh;
   };
+
+  programs.zsh.enable = true;
 }

@@ -33,10 +33,10 @@ in {
     ./status-bar/polybar.nix
   ];
 
-  home.pacakges = with pkgs; [
+  home.packages = with pkgs; [
     feh
     scrot
-    thunar
+    xfce.thunar
     pamixer
     playerctl
     pavucontrol

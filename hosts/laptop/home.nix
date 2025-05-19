@@ -6,6 +6,7 @@ in {
 
     ../../home-manager/nix.nix
     ../../home-manager/theme.nix
+    ../../home-manager/sh.nix
 
     ../../home-manager/app/browser/firefox.nix
     ../../home-manager/app/nvim/default.nix
@@ -30,7 +31,7 @@ in {
   ];
 
   home.username = cfg.username;
-  home.homeDirectory = "/home/${cfg.uesrname}";
+  home.homeDirectory = "/home/${cfg.username}";
 
   home.stateVersion = "24.05";
 }

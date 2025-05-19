@@ -3,9 +3,10 @@
 
   home.packages = with pkgs; [
     htop # Process viewer
-    qalc # Calculator
+    libqalculate # Calculator
     ncdu # Disk Usage
     eza # Better ls
+    bat # Better cat
     ripgrep # Better grep
     fd # Better find
     httpie # Better curl (good for testing API's)

@@ -263,7 +263,7 @@ in {
     };
 
     theme = let
-      inherit (lib.formats.rasi) mkLiteral;
+      inherit (config.lib.formats.rasi) mkLiteral;
     in {
       # TODO: change this to base16 colors
       "*" = {

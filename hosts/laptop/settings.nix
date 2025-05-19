@@ -23,9 +23,4 @@
 
     displayServerProtocol = "x11";
   };
-
-  i18n = {
-    defaultLocale = lib.mkForce "en_US.UTF-8";
-    supportedLocales = lib.mkForce ["en_US.UTF-8/UTF-8" "pt_PT.UTF-8/UTF-8"];
-  };
 }
