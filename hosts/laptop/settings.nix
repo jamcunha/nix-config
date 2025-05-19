@@ -6,6 +6,7 @@
   imports = [../../modules/settings.nix];
 
   mySettings = {
+    hostname = "laptop";
     username = "afonso";
     name = "Joaquim Cunha";
     email = "joaquimafonsocunha@gmail.com";
@@ -19,6 +20,8 @@
       # Epson Driver
       pkgs.epson-escpr
     ];
+
+    displayServerProtocol = "x11";
   };
 
   i18n = {

@@ -16,11 +16,11 @@ in {
   programs.virt-manager.enable = true;
 
   virtualisation.libvirtd = {
+    enable = true;
     allowedBridges = [
       "nm-bridge"
       "virbr0"
     ];
-    enable = true;
     qemu.runAsRoot = false;
   };
 

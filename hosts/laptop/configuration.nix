@@ -1,15 +1,19 @@
 {
+  config,
   inputs,
   lib,
   pkgs,
   ...
-}: {
+}: let
+  cfg = config.mySettings;
+in {
   imports = [
     ./settings.nix
 
     ../../nixos/app/docker.nix
     ../../nixos/app/gamemode.nix
     ../../nixos/app/kanata.nix
+    ../../nixos/app/lutris.nix
     ../../nixos/app/prismlauncher.nix
     ../../nixos/app/steam.nix
     ../../nixos/app/virtualization.nix
@@ -38,7 +42,7 @@
   boot.loader.efi.canTouchEfiVariables = true;
 
   networking.networkmanager.enable = true;
-  networking.hostName = "laptop";
+  networking.hostName = cfg.hostname;
 
   hardware = {
     graphics = {

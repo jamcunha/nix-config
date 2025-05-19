@@ -1,5 +1,10 @@
 {lib, ...}: {
   options.mySettings = {
+    hostname = lib.mkOption {
+      type = lib.types.str;
+      description = "Specifies the system hostname.";
+    };
+
     username = lib.mkOption {
       type = lib.types.str;
       description = "Specifies the user's account name.";
@@ -34,10 +39,16 @@
       type = lib.types.package;
       description = "Specifies which kernel to use. Default is `pkgs.linuxPackages_latest`.";
     };
+
     printing.drivers = lib.mkOption {
       type = lib.types.listOf lib.types.package;
       description = "Printer drivers to use";
       default = [];
+    };
+
+    displayServerProtocol = lib.mkOption {
+      type = lib.types.enum ["x11" "wayland"];
+      description = "Specifies the display server protocol used";
     };
   };
 }
