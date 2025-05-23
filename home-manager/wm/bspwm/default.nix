@@ -89,8 +89,8 @@ in {
     };
 
     extraConfig = ''
-      feh --bg-fill /home/afonso/.wallpaper/image.png &
-      systemctl --user start polybar &
+      ${pkgs.feh}/bin/feh --bg-fill $HOME/.wallpapers/image.png &
+      systemctl --user restart polybar &
     '';
   };
 
