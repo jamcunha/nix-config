@@ -18,7 +18,7 @@
 
     settings = {
       font = {
-        size = 9.0;
+        size = 12.0;
 
         normal = {
           family = "FiraMono Nerd Font";

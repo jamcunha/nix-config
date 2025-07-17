@@ -52,8 +52,8 @@ in {
 
     # Find a way to make the monitors dynamic
     monitors = {
-      eDP-1 = ["1" "2" "3" "4" "5" "6" "7" "8" "9" "10"];
       HDMI-2 = ["1" "2" "3" "4" "5" "6" "7" "8" "9" "10"];
+      eDP-1 = ["1" "2" "3" "4" "5" "6" "7" "8" "9" "10"];
 
       # when (only) nvidia is enabled (laptop specific, still need to find a better way)
       # eDP-1-1 = [ "1" "2" "3" "4" "5" "6" "7" "8" "9" "10" ];
