@@ -15,7 +15,6 @@
       "protocol.http" = {
         hls-bitrate = "max";
         cache = "yes";
-        no-cache-pause = true;
       };
     };
 
