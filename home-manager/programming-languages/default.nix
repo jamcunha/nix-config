@@ -6,5 +6,6 @@
     ./python.nix
     ./tailwind.nix
     ./typescript.nix
+    ./csharp.nix
   ];
 }

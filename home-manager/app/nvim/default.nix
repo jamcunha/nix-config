@@ -45,6 +45,9 @@
     vtsls
     prettierd
     eslint_d
+
+    # C#
+    csharp-ls
   ];
 
   # Maybe remove the symlink and update with `home-manager switch`, needs to add xdg.configFile.nvim.recursive = true

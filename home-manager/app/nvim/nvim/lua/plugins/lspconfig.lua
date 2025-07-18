@@ -118,6 +118,7 @@ return {
       'clangd',
       'basedpyright',
       'marksman',
+      'csharp_ls',
 
       'vtsls',
       'tailwindcss',
